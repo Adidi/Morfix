@@ -1,0 +1,43 @@
+.morfix{
+    width: 400px;
+    min-height: 200px;
+}
+
+.morfix table{
+    margin: 10px 0 20px 0 !important;
+}
+
+.morfix table td .word{
+    font-weight: bold;
+}
+
+.morfix table td.center{
+    text-align: center;
+}
+
+.morfix table td.explain{
+    direction: ltr;
+    color: #888;
+    font-style: italic;
+    font-size: 18px;
+}
+
+.morfix table td.explain > img{
+    float: left;
+    margin: 0 10px 10px 0;
+}
+
+
+.morfix table td .diber{
+    font-size: 12px;
+}
+
+.morfix .search-box{
+    padding: 10px 5px;
+}
+
+.morfix .footer-link{
+    position: fixed;
+    bottom: 0;
+    left: 5px;
+}
