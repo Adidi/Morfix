@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Morfix",
   "description": "Morfix-Hebrew English Dictionary",
-  "version": "1.0",
+  "version": "1.1",
   "background": {
     "scripts": ["event-page.js"],
     "persistent": false
