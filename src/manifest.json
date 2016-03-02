@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
-  "name": "Morfix",
-  "description": "Morfix-Hebrew English Dictionary",
-  "version": "1.1",
+  "name": "Morfix Hebrew English Translator for Chrome",
+  "description": "Translate Hebrew to English and English to Hebrew using Morfix engine.",
+  "version": "1.2",
   "background": {
     "scripts": ["event-page.js"],
     "persistent": false
