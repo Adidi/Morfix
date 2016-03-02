@@ -4,7 +4,8 @@ import SearchBox from './search-box';
 import TableResults from './table-results';
 import Loader from './loader';
 import Chrome from './../utils/chrome';
-import axios from 'axios';
+import $ from 'jquery';
+//import axios from 'axios';
 import conf from './../conf';
 import ModelItems from './../models/items';
 import { debounce } from 'lodash';
@@ -36,7 +37,24 @@ class App extends React.Component {
   request(){
     if(this.state.searchText.trim()) {
       let url = conf.baseUrl + this.state.searchText;
-      this.setState({loading: true});
+
+      if(this.jqxhr){
+        this.jqxhr.abort();
+      }
+
+      this.jqxhr = $.ajax({
+            url:url,
+            cache: false
+        }).done((res)=> {
+            let data = ModelItems.parse(res, this.state.direction);
+            this.setState({loading: false, items: data.items, direction: data.direction});
+        }).fail(()=> {
+            this.setState({loading: false, error: true});
+        }).always(()=>{
+          this.jqxhr = null;
+        });
+
+      /*
       axios.get(url)
         .then(res => {
           let data = ModelItems.parse(res.data, this.state.direction);
@@ -48,6 +66,10 @@ class App extends React.Component {
         .catch(res => {
           this.setState({loading: false, error: true});
         });
+        */
+    }
+    else{
+      this.setState({items: []});
     }
   }
 
