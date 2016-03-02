@@ -1,4 +1,4 @@
-# morfix
+# Morfix
 Morfix translator engine English-Hebrew, Hebrew-English
 Built with [Facebook REACT](https://facebook.github.io/react/) ,ES6 ,Babel
 
@@ -16,13 +16,12 @@ Moreover, you can right click on your selection and a menu item will appear dire
 
 Run & Build
 ------------
-- Download or clone the code
-- run npm install
-- install gulp globally: `npm install -g gulp`
+- Download or clone the project
+- run `npm install`
+- install gulp globally for builds: `npm install -g gulp`
 - build js & css: `gulp js css`
-- you can watch the code for easy editing: `gulp watch`
-- [work with unpack extension](https://developer.chrome.com/extensions/getstarted#unpacked)
-- zip your extension for extension deploy: `gulp zip`
-
+- you can watch the code for easy development: `gulp watch`
+- [develope with unpack extension instructions](https://developer.chrome.com/extensions/getstarted#unpacked) - navigate to "src" folder
+- zip your extension for deploy: `gulp zip`
 
 License **MIT**
