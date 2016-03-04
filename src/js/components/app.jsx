@@ -27,15 +27,15 @@ class App extends React.Component {
   componentDidMount(){
     Chrome.executeScript('window.getSelection().toString();')
       .then( selection =>{
-          let searchText = selection[0],
-            loading = searchText.trim() ? true : false;
-          this.setState({searchText:searchText,loading});
+          let searchText = selection[0]
+          this.setState({searchText});
       })
       .then(this.request.bind(this));
   }
 
   request(){
     if(this.state.searchText.trim()) {
+      this.setState({loading:true});
       let url = conf.baseUrl + this.state.searchText;
 
       if(this.jqxhr){
@@ -43,15 +43,16 @@ class App extends React.Component {
       }
 
       this.jqxhr = $.ajax({
-            url:url,
+            url,
             cache: false
         }).done((res)=> {
             let data = ModelItems.parse(res, this.state.direction);
-            this.setState({loading: false, items: data.items, direction: data.direction});
+            this.setState({items: data.items, direction: data.direction});
         }).fail(()=> {
-            this.setState({loading: false, error: true});
+            //this.setState({loading: false, error: true});
         }).always(()=>{
           this.jqxhr = null;
+          this.setState({loading:false});
         });
 
       /*
@@ -81,7 +82,7 @@ class App extends React.Component {
   onKeyUpSearch(){
     //only initialize debounce once !!!
     if(!this.requestDebounce){
-      this.requestDebounce = debounce(this.request.bind(this),200);
+      this.requestDebounce = debounce(this.request.bind(this),500);
     }
     this.requestDebounce();
   }
