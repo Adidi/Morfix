@@ -47,12 +47,13 @@ class App extends React.Component {
             cache: false
         }).done((res)=> {
             let data = ModelItems.parse(res, this.state.direction);
-            this.setState({items: data.items, direction: data.direction});
-        }).fail(()=> {
-            //this.setState({loading: false, error: true});
+            this.setState({items: data.items, loading: false, direction: data.direction});
+        }).fail((jqXHR,textStatus,err)=> {
+            if(textStatus !== 'abort'){
+              this.setState({loading: false, error: true});
+            }
         }).always(()=>{
           this.jqxhr = null;
-          this.setState({loading:false});
         });
 
       /*
