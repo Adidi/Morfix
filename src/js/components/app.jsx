@@ -27,7 +27,7 @@ class App extends React.Component {
   componentDidMount(){
     Chrome.executeScript('window.getSelection().toString();')
       .then( selection =>{
-          let searchText = selection[0]
+          let searchText = selection[0];
           this.setState({searchText});
       })
       .then(this.request.bind(this));
