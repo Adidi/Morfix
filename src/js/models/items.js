@@ -45,7 +45,7 @@ function parseEnglish(doc){
 function parseViki(doc){
   let el = doc.getElementById('vikiBrief');
   if(el){
-    add(el.innerText,'','',true);
+    add(el.innerHTML,'','',true);
   }
 }
 
