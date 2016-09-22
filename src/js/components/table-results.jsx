@@ -25,7 +25,7 @@ class TableResults extends React.Component {
       els = this.props.items.map( (item,i) =>
         <tr key={i} >
           /* dangerouslySetInnerHTML because in viki there are html links to viki */
-          <td style={{direction: item.viki ? 'rtl' : null}} dangerouslySetInnerHTML={{__html: item.text}}></td>
+          <td style={{direction: item.viki ? 'rtl' : null}} dangerouslySetInnerHTML={{__html: item.text}} />
           <td style={{direction: oppositeDir}}>
             <div className="word">{item.word}</div>
             <div className="diber">{item.diber}</div>

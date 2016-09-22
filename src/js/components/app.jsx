@@ -7,7 +7,7 @@ import Chrome from './../utils/chrome';
 import $ from 'jquery';
 //import axios from 'axios';
 import conf from './../conf';
-import ModelItems from './../models/items';
+import parse from './../models/items';
 import { debounce } from 'lodash';
 
 
@@ -46,7 +46,7 @@ class App extends React.Component {
             url,
             cache: false
         }).done((res)=> {
-            let data = ModelItems.parse(res, this.state.direction);
+            let data = parse(res, this.state.direction);
             this.setState({items: data.items, loading: false, direction: data.direction});
         }).fail((jqXHR,textStatus,err)=> {
             if(textStatus !== 'abort'){
@@ -59,7 +59,7 @@ class App extends React.Component {
       /*
       axios.get(url)
         .then(res => {
-          let data = ModelItems.parse(res.data, this.state.direction);
+          let data = parse(res.data, this.state.direction);
           //check again if search term is not empty to shwo results
           if(this.state.searchText.trim()){
             this.setState({loading: false, items: data.items, direction: data.direction});
