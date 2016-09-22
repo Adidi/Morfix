@@ -10,21 +10,22 @@ class TableResults extends React.Component {
   }
 
   render(){
-    let searchText = this.props.searchText.trim(),
-      els,
+    let { searchText, direction, loading, suggestions, directionSuggestions, items, onChangeSearch  } = this.props;
+    let els,
       cls = '',
-      oppositeDir = this.props.direction == 'rtl' ? 'ltr' : 'rtl';
-    if(this.props.loading){
+      oppositeDir = direction == 'rtl' ? 'ltr' : 'rtl';
+    searchText = searchText.trim();
+    if(loading){
       //put the loader inside the same table for better gui result
       els = <tr>
         <td colSpan="2"><Loader /></td>
       </tr>;
     }
-    else if(this.props.items.length){
+    else if(items.length){
+      /* dangerouslySetInnerHTML because in viki there are html links to viki */
       cls = 'table-striped';
-      els = this.props.items.map( (item,i) =>
+      els = items.map( (item,i) =>
         <tr key={i} >
-          /* dangerouslySetInnerHTML because in viki there are html links to viki */
           <td style={{direction: item.viki ? 'rtl' : null}} dangerouslySetInnerHTML={{__html: item.text}} />
           <td style={{direction: oppositeDir}}>
             <div className="word">{item.word}</div>
@@ -47,11 +48,38 @@ class TableResults extends React.Component {
       </tr>;
     }
 
+    let elsSuggestions = null;
+    if(suggestions && suggestions.length){
+      let elAnchors = [];
+      suggestions.forEach( (word,i) => {
+        word = word.trim();
+        elAnchors.push(<a key={`a${i}`} href="#" onClick={ (e) => {
+          onChangeSearch(word, true);
+        }}>{word}</a>);
+        if(i + 1 < suggestions.length){
+          elAnchors.push(<span key={`span${i}`}>,</span>);
+        }
+      });
+
+      elsSuggestions = <tr>
+        <td colSpan="2">
+          <div className="suggestions" >
+            <div style={{direction: 'ltr'}}>Suggestions:</div>
+            <div className={`ancs ${directionSuggestions}`} style={{direction:directionSuggestions}}>
+              {elAnchors}
+            </div>
+          </div>
+        </td>
+      </tr>;
+    }
+
+
     return (
       <div>
-        <table className={'table ' + cls} style={{direction:this.props.direction}} >
+        <table className={'table ' + cls} style={{direction:direction}} >
           <tbody>
           {els}
+          {elsSuggestions}
           </tbody>
         </table>
       </div>
@@ -61,9 +89,12 @@ class TableResults extends React.Component {
 
 TableResults.propTypes = {
   items: React.PropTypes.array.isRequired,
+  suggestions: React.PropTypes.array,
   direction: React.PropTypes.oneOf(['rtl', 'ltr']).isRequired,
+  directionSuggestions: React.PropTypes.oneOf(['rtl', 'ltr']),
   loading: React.PropTypes.bool.isRequired,
-  searchText: React.PropTypes.string.isRequired
+  searchText: React.PropTypes.string.isRequired,
+  onChangeSearch: React.PropTypes.func.isRequired
 };
 
 export default TableResults;

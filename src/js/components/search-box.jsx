@@ -28,7 +28,6 @@ class SearchBox extends React.Component {
           className="form-control"
           placeholder="Search"
           onChange={this.onChangeSearch.bind(this)}
-          onKeyUp={this.props.onKeyUpSearch}
           value={text}
         />
       </div>
@@ -37,8 +36,7 @@ class SearchBox extends React.Component {
 }
 
 SearchBox.propTypes = {
-  onChangeSearch: React.PropTypes.func.isRequired,
-  onKeyUpSearch: React.PropTypes.func.isRequired
+  onChangeSearch: React.PropTypes.func.isRequired
 };
 
 export default SearchBox;

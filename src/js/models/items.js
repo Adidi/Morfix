@@ -1,10 +1,14 @@
 
 let items,
-  direction;
+    suggestions,
+    direction,
+    directionSuggestions;
 
-function parse(html,dir){
+function parse(html,dir,dirSuggestions){
   items = [];
+  suggestions = [];
   direction = dir;
+  directionSuggestions = dirSuggestions;
 
   let parser = new DOMParser(),
     doc = parser.parseFromString(html, "text/html");
@@ -14,14 +18,34 @@ function parse(html,dir){
   parseEnglish(doc);
   parseViki(doc);
 
-  return {items,direction};
+  return {items,direction, suggestions, directionSuggestions};
 }
 
 function parseSuggestion(doc){
-  const suggestions = doc.querySelector('div.suggestions');
-  if(suggestions){
+  const elSuggestions = doc.querySelector('div.suggestions');
+  if(elSuggestions){
+    let english = elSuggestions.querySelector('.english'),
+        hebrew = elSuggestions.querySelector('.hebrew'),
+        elParent;
+    if(english){
+      directionSuggestions = 'ltr';
+      elParent = english;
+    }
+    else if(hebrew){
+      directionSuggestions = 'rtl';
+      elParent = hebrew;
+    }
 
+    if(elParent){
+      //querySelectorAll returns nodelist - so spread ... convert it to array
+      const anchorArr = [...elParent.querySelectorAll('a')];
+      if(anchorArr.length){
+        suggestions = anchorArr.map( a => a.innerText );
+      }
+    }
   }
+
+  return suggestions;
 }
 
 function parseHebrew(doc){
