@@ -24,6 +24,10 @@ const conf = {
 };
 
 function getBundler(watch){
+  if(!watch){
+    process.env.NODE_ENV = 'production';
+  }
+
   let globalArgs = {extensions: ['.js', '.jsx','.json']},
     args = watch ? merge(watchify.args, { debug: true },globalArgs) : globalArgs,
     bundler = browserify(conf.jsSrc,args).transform(babelify, {presets: ['es2015', 'react']});
