@@ -9,11 +9,19 @@ function parse(html,dir){
   let parser = new DOMParser(),
     doc = parser.parseFromString(html, "text/html");
 
+  parseSuggestion(doc);
   parseHebrew(doc);
   parseEnglish(doc);
   parseViki(doc);
 
   return {items,direction};
+}
+
+function parseSuggestion(doc){
+  const suggestions = doc.querySelector('div.suggestions');
+  if(suggestions){
+
+  }
 }
 
 function parseHebrew(doc){
@@ -53,4 +61,4 @@ function add(text,word = '',diber = '',viki = false){
   items.push({text,word,diber,viki});
 }
 
-export default {parse};
+export default parse;
