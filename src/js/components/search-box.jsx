@@ -1,42 +1,29 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 
-class SearchBox extends React.Component {
+const SearchBox = ({onChangeSearch,searchText}) => {
 
-  constructor() {
-    super();
-  }
-
-  componentDidMount(){
-    let el = ReactDOM.findDOMNode(this.refs.searchInput);
-    el.focus();
-  }
-
-  onChangeSearch(e){
-    this.props.onChangeSearch(e.target.value);
-  }
-
-  render(){
-    let text = this.props.searchText,
-      clearDisplay = text ? 'block' : 'none';
-
-    return (
-      <div className="search-box">
-        <input
-          ref="searchInput"
-          type="text"
-          className="form-control"
-          placeholder="Search"
-          onChange={this.onChangeSearch.bind(this)}
-          value={text}
-        />
-      </div>
-    );
-  }
-}
+  return (
+    <div className="search-box">
+      <input
+        ref={r => {
+            if(r){
+                SearchBox.searchInput = r;
+                r.focus();
+            }
+        }}
+        type="text"
+        className="form-control"
+        placeholder="Search"
+        onChange={e => onChangeSearch(e.target.value)}
+        value={searchText}
+      />
+    </div>
+  );
+};
 
 SearchBox.propTypes = {
-  onChangeSearch: React.PropTypes.func.isRequired
+  onChangeSearch: React.PropTypes.func.isRequired,
+  searchText: React.PropTypes.string.isRequired
 };
 
 export default SearchBox;

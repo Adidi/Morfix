@@ -87,8 +87,10 @@ class App extends React.Component {
         this.setState({searchText: value, loading, items: [], suggestions: []});
         this.search();
         if (focus) {
-            let el = ReactDOM.findDOMNode(this.searchBoxComp.refs.searchInput);
-            el.focus();
+            let el = this.searchBoxComp && this.searchBoxComp.searchInput;
+            if(el){
+                el.focus();
+            }
         }
     }
 
