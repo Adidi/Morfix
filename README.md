@@ -4,7 +4,7 @@ Built with [Facebook REACT](https://facebook.github.io/react/) ,ES6 ,Babel
 
 [Chrome Web Store](https://chrome.google.com/webstore/detail/morfix/edapkleoiajaekmconcehhkcbehppgom)
 
-![alt tag](https://lh3.googleusercontent.com/LkSwV0fBzz_PBBwnENDTc_uxHerNc5e2s63M2b5Dew464LFW7hNhIpTxD1O865wZ9rp4dXUf=s640-h400-e365-rw)
+![Morifx Extension](https://lh3.googleusercontent.com/YgTZESIP88nOGfGxjmHGOC8grBYFMSviiaOW7UPhz-TGTCp7Q612odurOlH4vZN5duS8sjJu4-I=s640-h400-e365)
 
 Use
 ------------
