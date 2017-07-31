@@ -13,6 +13,16 @@
     "https://*/*",
     "tabs"
   ],
+  "content_scripts" : [
+    {
+      "matches" : [
+        "http://*/*", "https://*/*"
+      ],
+      "js" : [ "m_inc.js" ],
+      "run_at" : "document_idle",
+      "all_frames" : false
+    }
+  ],
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
