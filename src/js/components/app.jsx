@@ -21,7 +21,7 @@ class App extends React.Component {
             suggestions: [],
             directionSuggestions: 'rtl'
         };
-        this.requestDebounce = debounce(this.request.bind(this), 500);
+        this.requestDebounce = debounce(this.request, 500);
     }
 
     async componentDidMount() {

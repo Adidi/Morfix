@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const SearchBox = ({onChangeSearch,searchText}) => {
 
@@ -22,8 +23,8 @@ const SearchBox = ({onChangeSearch,searchText}) => {
 };
 
 SearchBox.propTypes = {
-  onChangeSearch: React.PropTypes.func.isRequired,
-  searchText: React.PropTypes.string.isRequired
+  onChangeSearch: PropTypes.func.isRequired,
+  searchText: PropTypes.string.isRequired
 };
 
 export default SearchBox;

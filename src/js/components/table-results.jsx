@@ -1,5 +1,6 @@
 import React from 'react';
 import Loader from './loader';
+import PropTypes from 'prop-types';
 
 const TableResults = (props) => {
     let {searchText, direction, loading, suggestions, directionSuggestions, items, onChangeSearch} = props;
@@ -79,13 +80,13 @@ const TableResults = (props) => {
 };
 
 TableResults.propTypes = {
-    items: React.PropTypes.array.isRequired,
-    suggestions: React.PropTypes.array,
-    direction: React.PropTypes.oneOf(['rtl', 'ltr']).isRequired,
-    directionSuggestions: React.PropTypes.oneOf(['rtl', 'ltr']),
-    loading: React.PropTypes.bool.isRequired,
-    searchText: React.PropTypes.string.isRequired,
-    onChangeSearch: React.PropTypes.func.isRequired
+    items: PropTypes.array.isRequired,
+    suggestions: PropTypes.array,
+    direction: PropTypes.oneOf(['rtl', 'ltr']).isRequired,
+    directionSuggestions: PropTypes.oneOf(['rtl', 'ltr']),
+    loading: PropTypes.bool.isRequired,
+    searchText: PropTypes.string.isRequired,
+    onChangeSearch: PropTypes.func.isRequired
 };
 
 export default TableResults;
