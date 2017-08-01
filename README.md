@@ -18,10 +18,10 @@ Run & Build
 ------------
 - Download or clone the project
 - run `npm install`
-- install gulp globally for builds: `npm install -g gulp`
-- build js & css: `gulp js css`
-- you can watch the code for easy development: `gulp watch`
+- `npm run watch` - watch for development
+- `npm run build:dev` - build for dev
+- `npm run build:prod` - build for production (minify etc...)
 - [develope with unpack extension instructions](https://developer.chrome.com/extensions/getstarted#unpacked) - navigate to "src" folder
-- zip your extension for deploy: `gulp zip`
+- zip your extension for deploy: `npm run deploy`
 
 License **MIT**

@@ -1,14 +1,12 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import SearchBox from './search-box';
 import TableResults from './table-results';
 import Chrome from './../utils/chrome';
-import $ from 'jquery';
-// import axios from 'axios';
-import conf from './../conf';
 import parse from './../models/items';
-import {debounce} from 'lodash';
-
+import debounce from 'lodash/debounce';
+import { getData } from '../utils/xhr';
+import { MORFIX_URL }  from '../consts';
+import axios from 'axios';
 
 class App extends React.Component {
 
@@ -23,59 +21,46 @@ class App extends React.Component {
             suggestions: [],
             directionSuggestions: 'rtl'
         };
+        this.requestDebounce = debounce(this.request.bind(this), 500);
     }
 
-    componentDidMount() {
-        Chrome.executeScript('window.getSelection().toString();')
-            .then(selection => {
-                let searchText = selection[0];
-                this.setState({searchText});
-            })
-            .then(this.request.bind(this));
+    async componentDidMount() {
+        try{
+            const selection = await Chrome.executeScript('window.getSelection().toString();');
+            let searchText = selection[0];
+            this.setState({searchText}, () => this.request());
+        }
+        catch(ex){
+            throw ex;
+        }
     }
 
-    request() {
-        if (this.state.searchText.trim()) {
+    async request() {
+        const { searchText } = this.state;
+
+        if (searchText.trim()) {
             this.setState({loading: true});
-            let url = conf.baseUrl + this.state.searchText;
 
-            if (this.jqxhr) {
-                this.jqxhr.abort();
-            }
+            this.axiosSource && this.axiosSource.cancel('abort');
+            this.axiosSource = axios.CancelToken.source();
 
-            this.jqxhr = $.ajax({
-                url,
-                cache: false
-            }).done((res)=> {
-                let data = parse(res, this.state.direction, this.state.directionSuggestions);
+            try{
+                const result = await getData(searchText, this.axiosSource.token);
+                let data = parse(result.data, this.state.direction, this.state.directionSuggestions);
                 this.setState({
+                    loading: false,
                     items: data.items,
                     suggestions: data.suggestions,
-                    loading: false,
                     direction: data.direction,
                     directionSuggestions: data.directionSuggestions
                 });
-            }).fail((jqXHR, textStatus, err)=> {
-                if (textStatus !== 'abort') {
+            }
+            catch(ex){
+                if (ex.message !== 'abort') {
                     this.setState({loading: false, error: true});
                 }
-            }).always(()=> {
-                this.jqxhr = null;
-            });
+            }
 
-            /*
-             axios.get(url)
-             .then(res => {
-             let data = parse(res.data, this.state.direction);
-             //check again if search term is not empty to shwo results
-             if(this.state.searchText.trim()){
-             this.setState({loading: false, items: data.items, direction: data.direction});
-             }
-             })
-             .catch(res => {
-             this.setState({loading: false, error: true});
-             });
-             */
         }
         else {
             this.setState({items: [], suggestions: []});
@@ -83,7 +68,7 @@ class App extends React.Component {
     }
 
     onChangeSearch(value, focus = false) {
-        let loading = value.trim() ? true : false;
+        let loading = !!value.trim();
         this.setState({searchText: value, loading, items: [], suggestions: []});
         this.search();
         if (focus) {
@@ -95,16 +80,13 @@ class App extends React.Component {
     }
 
     search() {
-        //only initialize debounce once !!!
-        if (!this.requestDebounce) {
-            this.requestDebounce = debounce(this.request.bind(this), 500);
-        }
+        //debounced in constructor
         this.requestDebounce();
     }
 
     render() {
         let linkFooter = this.state.searchText.trim() ?
-            <div className="footer-link"><a href={conf.baseUrl + this.state.searchText} target="_blank"><img
+            <div className="footer-link"><a href={MORFIX_URL + this.state.searchText} target="_blank"><img
                 src="/icons/icon16.png" alt=""/>&nbsp;Morfix</a></div> : '';
 
 

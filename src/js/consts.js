@@ -1,0 +1,1 @@
+export const MORFIX_URL = 'http://www.morfix.co.il/';
