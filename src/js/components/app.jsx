@@ -7,6 +7,7 @@ import { getData } from '../utils/xhr';
 import { MORFIX_URL }  from '../consts';
 import axios from 'axios';
 import { getSelection } from '../utils/dom';
+import { get } from '../utils/storage';
 
 class App extends React.Component {
 
@@ -19,15 +20,17 @@ class App extends React.Component {
             direction: 'rtl',
             items: [],
             suggestions: [],
-            directionSuggestions: 'rtl'
+            directionSuggestions: 'rtl',
+            history: [],
+            historyOpen: false
         };
         this.requestDebounce = debounce(this.request, 500);
     }
 
     async componentDidMount() {
         try{
-            const searchText = await getSelection();
-            this.setState({searchText}, () => this.request());
+            const [ searchText, { history }] = await Promise.all([getSelection(), get('history')]);
+            this.setState({searchText, history}, () => this.request());
         }
         catch(ex){
             throw ex;
@@ -46,13 +49,13 @@ class App extends React.Component {
             try{
                 const result = await getData(searchText, this.axiosSource.token);
                 let data = parse(result.data, this.state.direction, this.state.directionSuggestions);
-                console.log(data);
                 this.setState({
                     loading: false,
                     items: data.items,
                     suggestions: data.suggestions,
                     direction: data.direction,
-                    directionSuggestions: data.directionSuggestions
+                    directionSuggestions: data.directionSuggestions,
+                    historyOpen: false
                 });
             }
             catch(ex){
@@ -69,7 +72,7 @@ class App extends React.Component {
 
     onChangeSearch(value, focus = false) {
         let loading = !!value.trim();
-        this.setState({searchText: value, loading, items: [], suggestions: []});
+        this.setState({searchText: value, loading, items: [], suggestions: [], historyOpen: true});
         this.search();
         if (focus) {
             let el = this.searchBoxComp && this.searchBoxComp.searchInput;
@@ -85,8 +88,18 @@ class App extends React.Component {
     }
 
     render() {
-        let linkFooter = this.state.searchText.trim() ?
-            <div className="footer-link"><a href={MORFIX_URL + this.state.searchText} target="_blank"><img
+        const { searchText,
+            items,
+            suggestions,
+            direction,
+            directionSuggestions,
+            loading,
+            history,
+            historyOpen
+        } = this.state;
+
+        let linkFooter = searchText.trim() ?
+            <div className="footer-link"><a href={MORFIX_URL + searchText} target="_blank"><img
                 src="/icons/icon16.png" alt=""/>&nbsp;Morfix</a></div> : '';
 
 
@@ -95,16 +108,18 @@ class App extends React.Component {
                 <SearchBox
                     ref={r => this.searchBoxComp = r}
                     onChangeSearch={this.onChangeSearch.bind(this)}
-                    searchText={this.state.searchText}
+                    searchText={searchText}
+                    history={history}
+                    historyOpen={historyOpen}
                 />
                 <TableResults
-                    items={this.state.items}
-                    suggestions={this.state.suggestions}
+                    items={items}
+                    suggestions={suggestions}
                     onChangeSearch={this.onChangeSearch.bind(this)}
-                    direction={this.state.direction}
-                    directionSuggestions={this.state.directionSuggestions}
-                    loading={this.state.loading}
-                    searchText={this.state.searchText}
+                    direction={direction}
+                    directionSuggestions={directionSuggestions}
+                    loading={loading}
+                    searchText={searchText}
                 />
                 {linkFooter}
             </div>

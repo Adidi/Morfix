@@ -1,7 +1,6 @@
 const fs = require('fs'),
     archiver = require('archiver');
 
-
 const path = __dirname + '/morfix.zip';
 const output = fs.createWriteStream(path);
 const archive = archiver('zip', {
