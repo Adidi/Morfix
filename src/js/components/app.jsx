@@ -1,12 +1,12 @@
 import React from 'react';
 import SearchBox from './search-box';
 import TableResults from './table-results';
-import Chrome from './../utils/chrome';
 import parse from './../models/items';
 import debounce from 'lodash/debounce';
 import { getData } from '../utils/xhr';
 import { MORFIX_URL }  from '../consts';
 import axios from 'axios';
+import { getSelection } from '../utils/dom';
 
 class App extends React.Component {
 
@@ -26,8 +26,7 @@ class App extends React.Component {
 
     async componentDidMount() {
         try{
-            const selection = await Chrome.executeScript('window.getSelection().toString();');
-            let searchText = selection[0];
+            const searchText = await getSelection();
             this.setState({searchText}, () => this.request());
         }
         catch(ex){
@@ -47,6 +46,7 @@ class App extends React.Component {
             try{
                 const result = await getData(searchText, this.axiosSource.token);
                 let data = parse(result.data, this.state.direction, this.state.directionSuggestions);
+                console.log(data);
                 this.setState({
                     loading: false,
                     items: data.items,

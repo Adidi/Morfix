@@ -1,12 +1,12 @@
 import React from 'react';
-import Loader from './loader';
 import PropTypes from 'prop-types';
+import Loader from './loader';
+import Suggestions from './suggestions';
 
-const TableResults = (props) => {
-    let {searchText, direction, loading, suggestions, directionSuggestions, items, onChangeSearch} = props;
+const TableResults = ({searchText, direction, loading, items, suggestions, directionSuggestions, onChangeSearch} ) => {
     let els,
         cls = '',
-        oppositeDir = direction == 'rtl' ? 'ltr' : 'rtl';
+        oppositeDir = direction === 'rtl' ? 'ltr' : 'rtl';
     searchText = searchText.trim();
     if (loading) {
         //put the loader inside the same table for better gui result
@@ -41,38 +41,16 @@ const TableResults = (props) => {
         </tr>;
     }
 
-    let elsSuggestions = null;
-    if (suggestions && suggestions.length) {
-        let elAnchors = [];
-        suggestions.forEach((word, i) => {
-            word = word.trim();
-            elAnchors.push(<a key={`a${i}`} href="#" onClick={ (e) => {
-                onChangeSearch(word, true);
-            }}>{word}</a>);
-            if (i + 1 < suggestions.length) {
-                elAnchors.push(<span key={`span${i}`}>,</span>);
-            }
-        });
-
-        elsSuggestions = <tr>
-            <td colSpan="2">
-                <div className="suggestions">
-                    <div style={{direction: 'ltr'}}>Suggestions:</div>
-                    <div className={`ancs ${directionSuggestions}`} style={{direction: directionSuggestions}}>
-                        {elAnchors}
-                    </div>
-                </div>
-            </td>
-        </tr>;
-    }
-
-
     return (
         <div>
             <table className={'table ' + cls} style={{direction: direction}}>
                 <tbody>
                 {els}
-                {elsSuggestions}
+                <Suggestions
+                    suggestions={suggestions}
+                    directionSuggestions={directionSuggestions}
+                    onChangeSearch={onChangeSearch}
+                    />
                 </tbody>
             </table>
         </div>

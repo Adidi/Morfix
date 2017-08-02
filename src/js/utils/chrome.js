@@ -1,15 +1,10 @@
 
-export default {
-  openTab(url, active = true){
-    if(url){
-      chrome.tabs.create({url: url,active: active});
-    }
-  },
+export const openTab = (url, active = true) => {
+    url && chrome.tabs.create({url: url, active: active});
+};
 
-  executeScript(code){
+export const executeScript = (code) => {
     return new Promise((resolve,reject) => {
-      chrome.tabs.executeScript({code: code},result => resolve(result) );
+        chrome.tabs.executeScript({code: code},result => resolve(result) );
     });
-  }
-}
-
+};
