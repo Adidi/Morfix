@@ -22,6 +22,11 @@
       "js" : [ "m_inc.js" ],
       "run_at" : "document_idle",
       "all_frames" : false
+    },
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["webpage/index.js"],
+      "css": ["webpage/style.css"]
     }
   ],
   "icons": {
