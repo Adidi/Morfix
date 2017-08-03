@@ -1,40 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import escapeRegExp from 'lodash/escapeRegExp';
+import WordsLinks from './words-links';
 
-const History = ({open, history, searchText}) => {
-    searchText = searchText.trim();
-    if(!open || !searchText){
-        return null;
-    }
-
-    let regMark = null;
-    if(searchText){
-        const reg = new RegExp(escapeRegExp(searchText), 'i');
-        history = history.filter( item => reg.test(item));
-        regMark = new RegExp('(' + escapeRegExp(searchText) + ')','ig');
-    }
-
-    if(!history.length){
-        return null;
-    }
-
-    return (
-        <div className="history">
-            { history.map( item => {
-                if(regMark){
-                    item = item.replace(regMark,'<b>$1</b>');
-                }
-                return <div className="item" dangerouslySetInnerHTML={{__html: item}} />
-            })}
-        </div>
-    )
-};
+const History = ({ history, onChangeSearch, clearHistory }) =>
+    <tr>
+        <td colSpan="2">
+            <div style={{direction: 'ltr'}}>History: <a href="#" onClick={clearHistory} >clear</a></div>
+            <WordsLinks
+                words={history}
+                direction={'ltr'}
+                onChangeSearch={onChangeSearch}
+            />
+        </td>
+    </tr>;
 
 History.propTypes = {
-    open: PropTypes.bool.isRequired,
     history: PropTypes.array.isRequired,
-    searchText: PropTypes.string.isRequired
+    onChangeSearch: PropTypes.func.isRequired,
+    clearHistory: PropTypes.func.isRequired
 };
 
 export default History;

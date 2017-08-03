@@ -9,7 +9,7 @@
     "build:dev": "npm run clean && webpack --config webpack/webpack.dev.config.js",
     "build:prod": "npm run clean && webpack --config webpack/webpack.prod.config.js",
     "watch": "npm run clean && webpack --config webpack/webpack.dev.config.js --watch",
-    "deploy": "npm run clean && npm run build:prod && node deploy"
+    "deploy": "npm run build:prod && node deploy"
   },
   "repository": {
     "type": "git",

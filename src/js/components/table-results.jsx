@@ -2,8 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Loader from './loader';
 import Suggestions from './suggestions';
+import History from './history';
 
-const TableResults = ({searchText, direction, loading, items, suggestions, directionSuggestions, onChangeSearch} ) => {
+const TableResults = ({searchText,
+                          direction,
+                          loading,
+                          items,
+                          suggestions,
+                          directionSuggestions,
+                          onChangeSearch,
+                          history,
+                          clearHistory
+                        } ) => {
     let els,
         cls = '',
         oppositeDir = direction === 'rtl' ? 'ltr' : 'rtl';
@@ -46,11 +56,16 @@ const TableResults = ({searchText, direction, loading, items, suggestions, direc
             <table className={'table ' + cls} style={{direction: direction}}>
                 <tbody>
                 {els}
-                <Suggestions
+                { !!suggestions.length && <Suggestions
                     suggestions={suggestions}
                     directionSuggestions={directionSuggestions}
                     onChangeSearch={onChangeSearch}
-                    />
+                    /> }
+                { !!history.length && <History
+                    history={history}
+                    onChangeSearch={onChangeSearch}
+                    clearHistory={clearHistory}
+                /> }
                 </tbody>
             </table>
         </div>
@@ -64,7 +79,9 @@ TableResults.propTypes = {
     directionSuggestions: PropTypes.oneOf(['rtl', 'ltr']),
     loading: PropTypes.bool.isRequired,
     searchText: PropTypes.string.isRequired,
-    onChangeSearch: PropTypes.func.isRequired
+    onChangeSearch: PropTypes.func.isRequired,
+    history: PropTypes.array.isRequired,
+    clearHistory: PropTypes.func.isRequired
 };
 
 export default TableResults;

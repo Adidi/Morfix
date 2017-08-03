@@ -14,3 +14,15 @@ export const get = keys => {
         });
     });
 };
+
+export const getHistory = () => {
+    return new Promise( async(resolve,reject) => {
+        let { history } = await get('history');
+        if(!history){
+            history = [];
+        }
+        resolve(history);
+    });
+};
+
+export const saveHistory = history => set({history});
