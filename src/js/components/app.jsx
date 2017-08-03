@@ -135,6 +135,7 @@ class App extends React.Component {
 
         return (
             <div className="morfix">
+                <a href="settings.html" target="_blank">Settings</a>
                 <SearchBox
                     ref={r => this.searchBoxComp = r}
                     onChangeSearch={this.onChangeSearch.bind(this)}
