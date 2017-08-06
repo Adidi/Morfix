@@ -14,6 +14,13 @@
     "tabs",
     "storage"
   ],
+  "content_scripts" : [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["webpage/index.js"],
+      "css": ["webpage/style.css"]
+    }
+  ],
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
