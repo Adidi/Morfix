@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Morfix Hebrew English Translator for Chrome",
   "description": "Translate Hebrew to English and English to Hebrew using Morfix engine.",
-  "version": "1.7",
+  "version": "1.8",
   "background": {
     "scripts": ["event-page.js"],
     "persistent": false
@@ -13,21 +13,6 @@
     "https://*/*",
     "tabs",
     "storage"
-  ],
-  "content_scripts" : [
-    {
-      "matches" : [
-        "http://*/*", "https://*/*"
-      ],
-      "js" : [ "m_inc.js" ],
-      "run_at" : "document_idle",
-      "all_frames" : false
-    },
-    {
-      "matches": ["http://*/*", "https://*/*"],
-      "js": ["webpage/index.js"],
-      "css": ["webpage/style.css"]
-    }
   ],
   "icons": {
     "16": "icons/icon16.png",
