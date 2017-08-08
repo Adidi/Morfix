@@ -1,15 +1,13 @@
 import React from 'react';
 import SearchBox from './search-box';
 import TableResults from './table-results';
-import parse from './../models/items';
+import parse from '../models/items';
 import debounce from 'lodash/debounce';
 import { getData } from '../utils/xhr';
 import { MORFIX_URL }  from '../consts';
 import axios from 'axios';
 import { getSelection } from '../utils/dom';
-import { getHistory, saveHistory } from '../utils/storage';
-
-const MAX_HISTORY = 20;
+import { getHistory, saveHistory, getSettings } from '../utils/storage';
 
 class App extends React.Component {
 
@@ -23,15 +21,30 @@ class App extends React.Component {
             items: [],
             suggestions: [],
             directionSuggestions: 'rtl',
-            history: []
+            history: [],
+            settings: {
+                history: {
+                    enabled: true,
+                    itemsCount: 20
+                },
+                balloon: {
+                    enabled: false,
+                    position: 'topLeft'
+                }
+            }
         };
         this.requestDebounce = debounce(this.request, 500);
     }
 
     async componentDidMount() {
         try{
-            const [ searchText, history ] = await Promise.all([getSelection(), getHistory()]);
-            this.setState({searchText, history}, () => this.request());
+            let [ searchText, history, settings ] = await Promise.all([getSelection(), getHistory(), getSettings()]);
+            //if there is settings take the default
+            if(!settings){
+                settings = this.state.settings;
+            }
+
+            this.setState({searchText, history, settings}, () => this.request());
         }
         catch(ex){
             throw ex;
@@ -89,7 +102,11 @@ class App extends React.Component {
     }
 
     async addToHistory(){
-        let { searchText } = this.state;
+        let { settings, searchText } = this.state;
+        if(!settings.history.enabled){
+            return;
+        }
+
         const history = await getHistory();
 
         searchText = searchText.trim();
@@ -101,7 +118,7 @@ class App extends React.Component {
         if(index !== -1){
             history.splice(index, 1);
         }
-        else if(history.length >= MAX_HISTORY){
+        else if(history.length >= settings.history.itemsCount){
             //remove last
             history.pop();
         }
@@ -127,6 +144,7 @@ class App extends React.Component {
             directionSuggestions,
             loading,
             history,
+            settings
         } = this.state;
 
         let linkFooter = searchText.trim() ?
@@ -151,6 +169,7 @@ class App extends React.Component {
                     searchText={searchText}
                     history={history}
                     clearHistory={this.clearHistory.bind(this)}
+                    settings={settings}
                 />
                 {linkFooter}
             </div>

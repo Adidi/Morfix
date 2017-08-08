@@ -12,10 +12,10 @@ archive.pipe(output);
 
 archive.glob('**/*.*', {
     cwd: 'src',
-    ignore: ['js/**/*.*', 'scss/**/*.*']
+    ignore: ['js/popup/**/*.*', 'scss/**/*.*']
 });
 
 // finalize the archive (ie we are done appending files but streams have to finish yet)
 archive.finalize();
 
-console.log('Successfully created zip at ' + path);
+console.log('Successfully created zip at ' + path);get

@@ -2,14 +2,39 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <script src="settings.js" ></script>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/settings.css" rel="stylesheet">
+    <script src="js/utils/storage.js" ></script>
+    <script src="js/settings/main.js" ></script>
 </head>
 <body>
+    <div class="container">
+        <div class="top">
+            <div>
+                <img src="icons/icon48.png" alt="" />
+            </div>
+            <h1>Settings</h1>
+        </div>
+        <div class="indent">
+            <form>
+                <div class="checkbox">
+                    <label>
+                        <input id="chkSaveHistory" type="checkbox"> Save History
+                    </label>
+                </div>
+                <div class="save-history-box indent">
+                   <label for="selectHistoryItems">Items in History:</label>
+                   <div class="select-history-items">
+                       <select id="selectHistoryItems" class="form-control" >
+                           <option value="10">10</option>
+                           <option value="20">20</option>
+                           <option value="50">50</option>
+                       </select>
+                   </div>
+                </div>
 
-<button id="btn">Click Me</button>
-<base href="http://www.axonize.com" />
-<div id="d">
-
-</div>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

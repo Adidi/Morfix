@@ -12,7 +12,8 @@ const TableResults = ({searchText,
                           directionSuggestions,
                           onChangeSearch,
                           history,
-                          clearHistory
+                          clearHistory,
+                          settings
                         } ) => {
     let els,
         cls = '',
@@ -61,11 +62,13 @@ const TableResults = ({searchText,
                     directionSuggestions={directionSuggestions}
                     onChangeSearch={onChangeSearch}
                     /> }
-                { !!history.length && <History
-                    history={history}
-                    onChangeSearch={onChangeSearch}
-                    clearHistory={clearHistory}
-                /> }
+                { !!history.length &&
+                    settings.history.enabled &&
+                        <History
+                            history={history}
+                            onChangeSearch={onChangeSearch}
+                            clearHistory={clearHistory}
+                        /> }
                 </tbody>
             </table>
         </div>
@@ -81,7 +84,8 @@ TableResults.propTypes = {
     searchText: PropTypes.string.isRequired,
     onChangeSearch: PropTypes.func.isRequired,
     history: PropTypes.array.isRequired,
-    clearHistory: PropTypes.func.isRequired
+    clearHistory: PropTypes.func.isRequired,
+    settings: PropTypes.object.isRequired
 };
 
 export default TableResults;

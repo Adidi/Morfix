@@ -7,7 +7,7 @@ module.exports = function(prod) {
     return {
         entry: [
             'babel-polyfill', // for async-await support!
-            path.resolve(__dirname, '../src/js')
+            path.resolve(__dirname, '../src/js/popup')
         ],
 
         output: {
@@ -23,7 +23,7 @@ module.exports = function(prod) {
                 query: {
                     cacheDirectory:true
                 },
-                include: path.resolve(__dirname, '../src/js')
+                include: path.resolve(__dirname, '../src/js/popup')
             },
                 {
                     test: /\.scss$/,

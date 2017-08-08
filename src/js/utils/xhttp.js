@@ -1,19 +1,4 @@
 
-document.addEventListener('DOMContentLoaded', function(){
-    var btn = document.getElementById('btn');
-
-    btn.addEventListener('click', function(){
-        chrome.storage.sync.get('history', data => {
-            alert(JSON.stringify(data));
-        });
-
-        xhttp('get', 'http://www.axonize.com', null, function(data){
-            document.getElementById('d').innerHTML = data;
-        })
-
-    });
-}, false);
-
 function xhttp(method, url, data, callback ){
     var xhttp = new XMLHttpRequest();
     var method = method ? method.toUpperCase() : 'GET';
