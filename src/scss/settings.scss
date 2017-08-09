@@ -1,0 +1,31 @@
+@charset "UTF-8";
+
+@import "vendor/bootstrap.min";
+
+.container{
+    color: #888;
+
+    .top{
+        display: flex;
+        padding: 10px;
+        align-items: center;
+
+        h1{
+            margin-left: 10px;
+        }
+    }
+
+    .indent{
+        padding: 0 50px;
+    }
+
+    .save-history-box{
+        display: flex;
+        align-items: center;
+    }
+
+    .select-history-items{
+        width: 80px;
+        margin-left: 10px;
+    }
+}

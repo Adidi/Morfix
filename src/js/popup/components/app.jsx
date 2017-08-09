@@ -1,13 +1,13 @@
 import React from 'react';
 import SearchBox from './search-box';
 import TableResults from './table-results';
-import parse from '../models/items';
+import parse from '../../utils/morfix';
 import debounce from 'lodash/debounce';
-import { getData } from '../utils/xhr';
-import { MORFIX_URL }  from '../consts';
+import { getData } from '../../utils/xhr';
+import { MORFIX_URL }  from '../../consts/app';
 import axios from 'axios';
-import { getSelection } from '../utils/dom';
-import { getHistory, saveHistory, getSettings } from '../utils/storage';
+import { getSelection } from '../../utils/dom';
+import { getHistory, saveHistory, getSettings } from '../../utils/storage';
 
 class App extends React.Component {
 
@@ -22,16 +22,7 @@ class App extends React.Component {
             suggestions: [],
             directionSuggestions: 'rtl',
             history: [],
-            settings: {
-                history: {
-                    enabled: true,
-                    itemsCount: 20
-                },
-                balloon: {
-                    enabled: false,
-                    position: 'topLeft'
-                }
-            }
+            settings: null
         };
         this.requestDebounce = debounce(this.request, 500);
     }
@@ -39,11 +30,6 @@ class App extends React.Component {
     async componentDidMount() {
         try{
             let [ searchText, history, settings ] = await Promise.all([getSelection(), getHistory(), getSettings()]);
-            //if there is settings take the default
-            if(!settings){
-                settings = this.state.settings;
-            }
-
             this.setState({searchText, history, settings}, () => this.request());
         }
         catch(ex){

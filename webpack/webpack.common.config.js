@@ -6,8 +6,8 @@ module.exports = function(prod) {
 
     return {
         entry: {
-            app: ['babel-polyfill', path.resolve(__dirname, '../src/js/popup')],
-            settings: ['babel-polyfill', path.resolve(__dirname, '../src/js/settings/main.js')]
+            popup: ['babel-polyfill', path.resolve(__dirname, '../src/js/popup')],
+            settings: ['babel-polyfill', path.resolve(__dirname, '../src/js/settings')]
         },
 
         output: {
@@ -59,7 +59,7 @@ module.exports = function(prod) {
 
         plugins: [
             new ExtractTextPlugin({
-                filename: 'app.css'
+                filename: '[name].css'
             }),
 
             new webpack.DefinePlugin({
