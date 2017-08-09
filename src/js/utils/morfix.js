@@ -53,10 +53,23 @@ function parseHebrew(doc){
     el;
   while(el = doc.querySelector('div[class*=heWord' + i++ + ']')){
     direction = 'rtl';
+
+    let soundUrl = '',
+        spanSound = el.querySelector('span.goody'),
+        spanSoundHTML = spanSound && spanSound.innerHTML;
+    if(spanSoundHTML){
+        const m = spanSoundHTML.match(/(http.*\.mp3)/i);
+        if(m){
+            soundUrl = m[1];
+        }
+    }
+
     add(
       el.querySelector('div.translation_he').innerText,
       el.querySelector('span.word').innerText,
-      el.querySelector('span.diber').innerText
+      el.querySelector('span.diber').innerText,
+      false,
+      soundUrl
     );
   }
 }
@@ -81,8 +94,8 @@ function parseViki(doc){
   }
 }
 
-function add(text,word = '',diber = '',viki = false){
-  items.push({text,word,diber,viki});
+function add(text,word = '',diber = '',viki = false, soundUrl = ''){
+  items.push({text,word,diber,viki, soundUrl});
 }
 
 export default parse;

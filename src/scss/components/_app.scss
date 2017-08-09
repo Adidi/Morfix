@@ -4,8 +4,17 @@
     table{
         margin: 10px 0 20px 0 !important;
 
-        td .word{
-            font-weight: bold;
+        td .word-box{
+            display: flex;
+
+            .word{
+                font-weight: bold;
+            }
+
+            .sound-box{
+                cursor: pointer;
+                padding: 0 5px;
+            }
         }
 
         td.center{
@@ -34,10 +43,22 @@
         padding: 10px 5px;
     }
 
+    .results-box{
+        max-height: 500px;
+        overflow-y: auto;
+        margin-bottom: 25px;
+    }
+
     .footer-link{
         position: fixed;
         bottom: 0;
         left: 5px;
+    }
+
+    .settings-link{
+        position: fixed;
+        bottom: 0;
+        right: 5px;
     }
 
     .words-links a{

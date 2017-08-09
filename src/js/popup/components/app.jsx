@@ -8,6 +8,7 @@ import { MORFIX_URL }  from '../../consts/app';
 import axios from 'axios';
 import { getSelection } from '../../utils/dom';
 import { getHistory, saveHistory, getSettings } from '../../utils/storage';
+import { DEFAULT_SETTINGS } from '../../consts/app';
 
 class App extends React.Component {
 
@@ -22,7 +23,7 @@ class App extends React.Component {
             suggestions: [],
             directionSuggestions: 'rtl',
             history: [],
-            settings: null
+            settings: DEFAULT_SETTINGS
         };
         this.requestDebounce = debounce(this.request, 500);
     }
@@ -61,6 +62,7 @@ class App extends React.Component {
             catch(ex){
                 if (ex.message !== 'abort') {
                     this.setState({loading: false, error: true});
+                    throw ex;
                 }
             }
 
@@ -139,7 +141,6 @@ class App extends React.Component {
 
         return (
             <div className="morfix">
-                <a href="settings.html" target="_blank">Settings</a>
                 <SearchBox
                     ref={r => this.searchBoxComp = r}
                     onChangeSearch={this.onChangeSearch.bind(this)}
@@ -158,6 +159,7 @@ class App extends React.Component {
                     settings={settings}
                 />
                 {linkFooter}
+                <div className="settings-link"><img src="icons/settings.png" alt="" /><a href="settings.html" target="_blank">Settings</a></div>
             </div>
         );
     }

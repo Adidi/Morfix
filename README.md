@@ -19,9 +19,9 @@ Run & Build
 - Download or clone the project
 - run `npm install`
 - `npm run watch` - watch for development
-- `npm run build:dev` - build for dev
+- `npm run build:dev` - build for development
 - `npm run build:prod` - build for production (minify etc...)
 - [develope with unpack extension instructions](https://developer.chrome.com/extensions/getstarted#unpacked) - navigate to "src" folder
-- zip your extension for deploy: `npm run deploy`
+- zip extension for deploy: `npm run deploy`
 
 License **MIT**

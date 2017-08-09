@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Loader from './loader';
 import Suggestions from './suggestions';
 import History from './history';
+import { playSound } from '../../utils/dom';
 
 const TableResults = ({searchText,
                           direction,
@@ -32,7 +33,12 @@ const TableResults = ({searchText,
             <tr key={i}>
                 <td style={{direction: item.viki ? 'rtl' : null}} dangerouslySetInnerHTML={{__html: item.text}}/>
                 <td style={{direction: oppositeDir}}>
-                    <div className="word">{item.word}</div>
+                    <div className="word-box">
+                        <div className="word">{item.word}</div>
+                        {item.soundUrl && <div className="sound-box" onClick={e => {
+                                                playSound(item.soundUrl);
+                                             }}><img src="icons/sound.png" alt="" /></div> }
+                    </div>
                     <div className="diber">{item.diber}</div>
                 </td>
             </tr>
@@ -53,7 +59,7 @@ const TableResults = ({searchText,
     }
 
     return (
-        <div>
+        <div className="results-box">
             <table className={'table ' + cls} style={{direction: direction}}>
                 <tbody>
                 {els}

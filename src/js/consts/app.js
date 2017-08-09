@@ -6,6 +6,6 @@ export const DEFAULT_SETTINGS = {
     },
     balloon: {
         enabled: false,
-        position: 'topLeft'
+        position: 'topRight'
     }
 };

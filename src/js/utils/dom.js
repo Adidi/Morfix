@@ -13,3 +13,7 @@ export const getSelection = () => {
 
     });
 };
+
+export const playSound = url => {
+    new Audio(url).play();
+};
