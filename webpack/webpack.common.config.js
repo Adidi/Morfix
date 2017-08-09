@@ -59,7 +59,12 @@ module.exports = function(prod) {
 
         plugins: [
             new ExtractTextPlugin({
-                filename: '[name].css'
+                filename: '[name].css',
+                allChunks: true
+            }),
+
+            new webpack.optimize.CommonsChunkPlugin({
+                name: 'common'
             }),
 
             new webpack.DefinePlugin({

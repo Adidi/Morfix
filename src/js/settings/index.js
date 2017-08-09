@@ -1,5 +1,6 @@
 import { getSettings, saveSettings, clearHistory } from '../utils/storage';
 
+import '../../scss/vendor/bootstrap.scss';
 import '../../scss/settings.scss';
 
 const init = async () => {
