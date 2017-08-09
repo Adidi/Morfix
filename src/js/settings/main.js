@@ -1,3 +1,4 @@
+import { clearHistory } from '../popup/utils/storage';
 
 const defaultSettings = {
     history: {
@@ -11,6 +12,7 @@ const defaultSettings = {
 };
 
 function init(){
+    console.log(clearHistory);
     getStorage('settings').then( data => {
         let settings = data.settings;
         if(!settings){
@@ -46,7 +48,7 @@ function init(){
             history.enabled = e.target.checked;
             if(!history.enabled){
                 //clear the history
-                setStorage({history: []});
+                clearHistory();
             }
             renderChkHistory();
             saveSettings();

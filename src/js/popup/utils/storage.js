@@ -27,6 +27,8 @@ export const getHistory = () => {
 
 export const saveHistory = history => set({history});
 
+export const clearHistory = () => saveHistory([]);
+
 export const getSettings = () => {
     return new Promise( async(resolve,reject) => {
         let { settings } = await get('settings');

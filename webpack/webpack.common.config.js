@@ -5,14 +5,14 @@ const path = require('path'),
 module.exports = function(prod) {
 
     return {
-        entry: [
-            'babel-polyfill', // for async-await support!
-            path.resolve(__dirname, '../src/js/popup')
-        ],
+        entry: {
+            app: ['babel-polyfill', path.resolve(__dirname, '../src/js/popup')],
+            settings: ['babel-polyfill', path.resolve(__dirname, '../src/js/settings/main.js')]
+        },
 
         output: {
             path: path.resolve(__dirname, '../src/dist'),
-            filename: 'app.js'
+            filename: '[name].js'
         },
 
         module: {
@@ -23,7 +23,7 @@ module.exports = function(prod) {
                 query: {
                     cacheDirectory:true
                 },
-                include: path.resolve(__dirname, '../src/js/popup')
+                include: path.resolve(__dirname, '../src/js/')
             },
                 {
                     test: /\.scss$/,
