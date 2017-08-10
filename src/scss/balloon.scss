@@ -1,0 +1,44 @@
+@charset "UTF-8";
+
+@import "components/loader";
+
+html {
+    box-sizing: border-box;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+
+div#morfixChromeExtensionBalloon{
+    position: fixed;
+    top: 10px;
+    right: -310px;
+    width: 300px;
+    min-height: 100px;
+    background-color: #fff8dc;
+    border: 1px solid #e0dcbf;
+    z-index: 3000000000;
+    transition: all .3s ease;
+    border-radius: 5px;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
+    font-size: 14px;
+
+    &.open{
+        right: 10px;
+    }
+
+    .adidi-mceb-wrapper{
+        position: relative;
+
+        .adidi-mceb-img-box{
+            position: absolute;
+            top: 3px;
+            left: 3px;
+        }
+
+        .adidi-mceb-title{
+            text-align: center;
+        }
+    }
+}

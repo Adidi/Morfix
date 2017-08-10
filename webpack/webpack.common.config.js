@@ -7,7 +7,9 @@ module.exports = function(prod) {
     return {
         entry: {
             popup: ['babel-polyfill', path.resolve(__dirname, '../src/js/popup')],
-            settings: ['babel-polyfill', path.resolve(__dirname, '../src/js/settings')]
+            settings: ['babel-polyfill', path.resolve(__dirname, '../src/js/settings')],
+            balloon: ['babel-polyfill', path.resolve(__dirname, '../src/js/balloon')],
+            background: ['babel-polyfill', path.resolve(__dirname, '../src/js/background')]
         },
 
         output: {
@@ -64,7 +66,8 @@ module.exports = function(prod) {
             }),
 
             new webpack.optimize.CommonsChunkPlugin({
-                name: 'common'
+                name: 'common',
+                minChunks: 2
             }),
 
             new webpack.DefinePlugin({

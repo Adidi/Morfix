@@ -4,8 +4,7 @@
   "description": "Translate Hebrew to English and English to Hebrew using Morfix engine.",
   "version": "2.0",
   "background": {
-    "scripts": ["event-page.js"],
-    "persistent": false
+    "scripts": ["event-page.js","dist/common.js","dist/background.js"]
   },
   "permissions": [
     "contextMenus",
@@ -14,11 +13,21 @@
     "tabs",
     "storage"
   ],
+  "content_scripts" : [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["dist/common.js","dist/balloon.js"],
+      "css": ["dist/balloon.css"]
+    }
+  ],
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
     "128": "icons/icon128.png"
   },
+  "web_accessible_resources": [
+    "icons/*.png"
+  ],
   "browser_action": {
     "default_icon": "icons/icon.png",
     "default_popup": "popup.html"
