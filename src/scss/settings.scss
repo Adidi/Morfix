@@ -62,6 +62,11 @@ body{
 
     .buttons{
         margin-top: 50px;
+
+        input:first-child{
+            display: inline-block;
+            margin-right: 10px;
+        }
     }
 
     .success-box{

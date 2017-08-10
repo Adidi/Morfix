@@ -4,67 +4,10 @@
     <meta charset="UTF-8">
     <link href="dist/common.css" rel="stylesheet">
     <link href="dist/settings.css" rel="stylesheet">
-    <script src="dist/common.js" ></script>
-    <script src="dist/settings.js" ></script>
 </head>
 <body>
-    <div class="container">
-        <div class="logo-box">
-            <img src="icons/icon128.png" alt="" />
-        </div>
-        <div class="top">
-            <div class="title">Settings</div>
-        </div>
-        <div>
-            <form>
-                <div class="checkbox">
-                    <label>
-                        <input id="chkSaveHistory" type="checkbox"> Save History
-                    </label>
-                </div>
-                <div class="chk-box indent">
-                   <label for="selectHistoryItems">Items in History:</label>
-                   <div class="select-history-items">
-                       <select id="selectHistoryItems" class="form-control" >
-                           <option value="10">10</option>
-                           <option value="20">20</option>
-                           <option value="50">50</option>
-                       </select>
-                   </div>
-                </div>
-                <div class="checkbox" style="display:none;">
-                    <label>
-                        <input id="chkShowBalloon" type="checkbox"> Show translation on balloon over the web page edges
-                    </label>
-                </div>
-                <div class="chk-box indent" style="display:none;">
-                    <label for="selectBalloonPosition">Balloon Position:</label>
-                    <div class="select-balloon-position">
-                        <select id="selectBalloonPosition" class="form-control" >
-                            <option value="topRight">Top-Right</option>
-                            <option value="topMiddle">Top-Middle</option>
-                            <option value="topLeft">Top-Left</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="buttons">
-                    <input id="btnSave" class="btn btn-primary" type="button" value="Save">
-                    <input id="btnReset" class="btn btn-default" type="button" value="Reset">
-                    <div id="success" class="success-box">Settings saved.</div>
-                </div>
-            </form>
-        </div>
-    </div>
-    <div class="footer">
-        <div>
-            <div class="copy">&copy;2017 Adidi</div>
-            <iframe src="https://ghbtns.com/github-btn.html?user=adidi&repo=morfix&type=star&count=true&size=large" frameborder="0" scrolling="0" width="160px" height="30px"></iframe>
-        </div>
-        <div>
-            <a href="https://www.paypal.me/adieloz" target="_blank">
-                <img src="https://www.paypalobjects.com/en_US/IL/i/btn/btn_donateCC_LG.gif" border="0" alt="PayPal - The safer, easier way to pay online!">
-            </a>
-        </div>
-    </div>
+    <div id="settings"></div>
+    <script src="dist/common.js" ></script>
+    <script src="dist/settings.js" ></script>
 </body>
 </html>
