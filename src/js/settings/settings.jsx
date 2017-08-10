@@ -1,12 +1,12 @@
 import React from 'react';
 import {getSettings, saveSettings, clearHistory} from '../utils/storage';
-import {DEFAULT_SETTINGS} from '../consts/app';
+import { getDefaultSettings } from '../utils/app';
 
 class Settings extends React.Component {
     constructor() {
         super();
         this.state = {
-            settings: DEFAULT_SETTINGS,
+            settings: getDefaultSettings(),
             success: false
         };
     }
@@ -27,8 +27,9 @@ class Settings extends React.Component {
     }
 
     reset(){
-        saveSettings(DEFAULT_SETTINGS);
-        this.setState({settings: DEFAULT_SETTINGS});
+        const settings = getDefaultSettings();
+        saveSettings(settings);
+        this.setState({settings});
         this.showSuccess();
     }
 

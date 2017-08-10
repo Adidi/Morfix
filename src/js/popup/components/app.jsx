@@ -8,7 +8,7 @@ import { MORFIX_URL }  from '../../consts/app';
 import axios from 'axios';
 import { getSelection } from '../../utils/dom';
 import { getHistory, saveHistory, getSettings } from '../../utils/storage';
-import { DEFAULT_SETTINGS } from '../../consts/app';
+import { getDefaultSettings } from '../../utils/app';
 
 class App extends React.Component {
 
@@ -23,7 +23,7 @@ class App extends React.Component {
             suggestions: [],
             directionSuggestions: 'rtl',
             history: [],
-            settings: DEFAULT_SETTINGS
+            settings: getDefaultSettings()
         };
         this.requestDebounce = debounce(this.request, 500);
     }

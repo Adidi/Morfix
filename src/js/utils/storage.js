@@ -1,4 +1,4 @@
-import { DEFAULT_SETTINGS } from '../consts/app';
+import { getDefaultSettings } from '../utils/app';
 
 export const set = data => {
     return new Promise( (resolve,reject) => {
@@ -34,7 +34,7 @@ export const getSettings = () => {
     return new Promise( async(resolve,reject) => {
         let { settings } = await get('settings');
         if(!settings){
-            settings = DEFAULT_SETTINGS;
+            settings = getDefaultSettings();
         }
         resolve(settings);
     });
