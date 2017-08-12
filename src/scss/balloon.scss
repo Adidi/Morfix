@@ -20,7 +20,7 @@ div#adidiMorfixChromeExtensionBalloon{
     margin: 0;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
     box-sizing: border-box;
-    z-index: 99999999;
+    z-index: 2147483647;
 
     &.topRight{
         top: 10px !important;
