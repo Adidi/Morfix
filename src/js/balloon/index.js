@@ -37,33 +37,34 @@ document.addEventListener('click',  async () => {
         return;
     }
 
-    balloonDOM.classList.remove('topRight','topLeft','bottomLeft','bottomRight');
+    balloonDOM.classList.remove('topRight','topLeft','bottomLeft','bottomRight','open');
     balloonDOM.classList.add(position);
 
-    clearTimeout(timeoutId);
+    //make set timeout cause otherwise it will jump(not animate) when switching position in the settings
+    setTimeout(() => {
+        title.innerHTML = `"${selection}"`;
+        content.innerHTML = getLoader();
 
-    title.innerHTML = `"${selection}"`;
-    content.innerHTML = getLoader();
-
-    openBalloon();
-    //send to background page for http from https use (morfix is always http)
-    chrome.runtime.sendMessage({ action: 'morfix', query: selection }, data => {
-        content.innerHTML = getContent(data);
-        //attach sound events
-        const sounds = [...content.querySelectorAll('.js-sound')];
-        sounds.forEach( el => {
-            const soundUrl = el.getAttribute('data-sound-url');
-            el.addEventListener('click', e => {
-                e.stopPropagation();
-                //send sound to bg for https -> http
-                chrome.runtime.sendMessage({ action: 'sound', url: soundUrl });
-                //delay the close if press on sound
-                timeoutCloseBalloon();
+        openBalloon();
+        //send to background page for http from https use (morfix is always http)
+        chrome.runtime.sendMessage({ action: 'morfix', query: selection }, data => {
+            content.innerHTML = getContent(data);
+            //attach sound events
+            const sounds = [...content.querySelectorAll('.js-sound')];
+            sounds.forEach( el => {
+                const soundUrl = el.getAttribute('data-sound-url');
+                el.addEventListener('click', e => {
+                    e.stopPropagation();
+                    //send sound to bg for https -> http
+                    chrome.runtime.sendMessage({ action: 'sound', url: soundUrl });
+                    //delay the close if press on sound
+                    timeoutCloseBalloon();
+                });
             });
-        });
 
-        timeoutCloseBalloon();
-    });
+            timeoutCloseBalloon();
+        });
+    },1);
 });
 
 const timeoutCloseBalloon = () => {
@@ -81,7 +82,10 @@ const timeoutCloseBalloon = () => {
     },timeOpen*1000);
 };
 
-const openBalloon = () => balloonDOM.classList.add('open');
+const openBalloon = () => {
+    clearTimeout(timeoutId);
+    balloonDOM.classList.add('open');
+};
 const closeBalloon = () => balloonDOM.classList.remove('open');
 
 
