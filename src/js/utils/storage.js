@@ -1,4 +1,5 @@
 import { getDefaultSettings } from '../utils/app';
+import merge from 'lodash/merge';
 
 export const set = data => {
     return new Promise( (resolve,reject) => {
@@ -18,10 +19,7 @@ export const get = keys => {
 
 export const getHistory = () => {
     return new Promise( async(resolve,reject) => {
-        let { history } = await get('history');
-        if(!history){
-            history = [];
-        }
+        const { history = [] } = await get('history');
         resolve(history);
     });
 };
@@ -33,9 +31,7 @@ export const clearHistory = () => saveHistory([]);
 export const getSettings = () => {
     return new Promise( async(resolve,reject) => {
         let { settings } = await get('settings');
-        if(!settings){
-            settings = getDefaultSettings();
-        }
+        settings = merge(getDefaultSettings(), settings);
         resolve(settings);
     });
 };

@@ -6,6 +6,9 @@ export const DEFAULT_SETTINGS = {
     },
     balloon: {
         enabled: false,
-        position: 'topRight'
+        position: 'topRight',
+        timeOpen: 5
     }
 };
+
+export const WORD_MAX_LENGTH = 60;

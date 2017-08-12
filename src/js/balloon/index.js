@@ -1,72 +1,91 @@
 import '../../scss/balloon.scss';
+import { isLegalWord } from '../utils/app';
+import { getStructure, getLoader, getContent } from './html';
+import { getSettings } from '../utils/storage';
 
-const getLoader = () => {
-    return `<div class="loader">
-      <div class="circle-1" ></div>
-      <div class="circle-2" ></div>
-      <div class="circle-3" ></div>
-    </div>`;
-};
+const BALLOON_ELEMENT_ID = 'adidiMorfixChromeExtensionBalloon';
 
+let balloonDOM = document.getElementById(BALLOON_ELEMENT_ID),
+    timeoutId,
+    settings;
 
-let root = document.getElementById('morfixChromeExtensionBalloon'),
-    title,
-    content;
-if(!root){
-    root = document.createElement("div");
-    root.id = 'morfixChromeExtensionBalloon';
-    root.innerHTML = `<div class="adidi-mceb-wrapper">
-                          <div class="adidi-mceb-img-box"><img src="${chrome.extension.getURL("icons/icon.png")}" /></div>
-                          <div class="adidi-mceb-title"></div>
-                          <div class="adidi-mceb-content"></div>
-                     </div>`;
+if(!balloonDOM){
+    balloonDOM = document.createElement('div');
+    balloonDOM.id = BALLOON_ELEMENT_ID;
+    balloonDOM.innerHTML = getStructure();
 
-    title = root.querySelector('div.adidi-mceb-title');
-    content = root.querySelector('div.adidi-mceb-content');
-    content.innerHTML = getLoader();
-    title.innerHTML = 'Search for "java"';
-    document.body.appendChild(root);
+    balloonDOM.classList.add('topRight');
+
+    const x = balloonDOM.querySelector('div.adidi-mceb-x-box');
+    x.addEventListener('click', e => {
+        e.stopPropagation();
+        closeBalloon();
+    });
+
+    document.body.appendChild(balloonDOM);
 }
 
-let timeoutId;
-const showBalloon = () => {
-    root.classList.add('open');
-    clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => {
-        root.classList.remove('open');
-    },5000);
-};
+const title = balloonDOM.querySelector('div.adidi-mceb-title-box .t'),
+    content = balloonDOM.querySelector('div.adidi-mceb-content');
 
-
-document.addEventListener('click',  () => {
-    const selection = window.getSelection().toString().trim();
-    if(!selection){
+document.addEventListener('click',  async () => {
+    settings = await getSettings();
+    const { balloon } = settings,
+        { enabled, position } = balloon;
+    if(!enabled){
         return;
     }
 
+    balloonDOM.classList.remove('topRight','topLeft','bottomLeft','bottomRight');
+    balloonDOM.classList.add(position);
+
+    const selection = window.getSelection().toString().trim();
+    if(!isLegalWord(selection)){
+        return;
+    }
+
+    clearTimeout(timeoutId);
+
     title.innerHTML = `"${selection}"`;
-    showBalloon();
+    content.innerHTML = getLoader();
 
-    chrome.runtime.sendMessage({
-        action: 'morfix',
-        query: selection
-    }, (obj) => {
-        console.log(obj);
+    openBalloon();
+    //send to background page for http from https use (morfix is always http)
+    chrome.runtime.sendMessage({ action: 'morfix', query: selection }, data => {
+        content.innerHTML = getContent(data);
+        //attach sound events
+        const sounds = [...content.querySelectorAll('.js-sound')];
+        sounds.forEach( el => {
+            const soundUrl = el.getAttribute('data-sound-url');
+            el.addEventListener('click', e => {
+                e.stopPropagation();
+                //send sound to bg for https -> http
+                chrome.runtime.sendMessage({ action: 'sound', url: soundUrl });
+                //delay the close if press on sound
+                timeoutCloseBalloon();
+            });
+        });
+
+        timeoutCloseBalloon();
     });
-
-    // chrome.runtime.sendMessage({action: 'morfix', query: selection} , data => {
-    //     console.log('data',data);
-    // });
-    // var selection = window.getSelection().toString();
-    //
-    // if(selection){
-    //     div.innerText = selection;
-    //     div.classList.add('open');
-    //
-    //     clearTimeout(timeoutid);
-    //
-    //     timeoutid = setTimeout(() => {
-    //         div.classList.remove('open');
-    //     },10000);
-    // }
 });
+
+const timeoutCloseBalloon = () => {
+    clearTimeout(timeoutId);
+
+    //settings will always be exists cause i fetch them on click !
+    const { balloon } = settings,
+        { timeOpen } = balloon;
+    if(timeOpen === -1){
+        return;
+    }
+
+    timeoutId = setTimeout(() => {
+        closeBalloon();
+    },timeOpen*1000);
+};
+
+const openBalloon = () => balloonDOM.classList.add('open');
+const closeBalloon = () => balloonDOM.classList.remove('open');
+
+

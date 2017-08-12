@@ -65,7 +65,7 @@ const TableResults = ({searchText,
                 {els}
                 { !!suggestions.length && <Suggestions
                     suggestions={suggestions}
-                    directionSuggestions={directionSuggestions}
+                    direction={directionSuggestions}
                     onChangeSearch={onChangeSearch}
                     /> }
                 { !!history.length &&

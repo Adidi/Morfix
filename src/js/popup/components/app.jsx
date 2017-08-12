@@ -1,11 +1,9 @@
 import React from 'react';
 import SearchBox from './search-box';
 import TableResults from './table-results';
-import parse from '../../utils/morfix';
+import fetchData from '../../utils/morfix';
 import debounce from 'lodash/debounce';
-import { getData } from '../../utils/xhr';
 import { MORFIX_URL }  from '../../consts/app';
-import axios from 'axios';
 import { getSelection } from '../../utils/dom';
 import { getHistory, saveHistory, getSettings } from '../../utils/storage';
 import { getDefaultSettings } from '../../utils/app';
@@ -30,7 +28,7 @@ class App extends React.Component {
 
     async componentDidMount() {
         try{
-            let [ searchText, history, settings ] = await Promise.all([getSelection(), getHistory(), getSettings()]);
+            const [ searchText, history, settings ] = await Promise.all([getSelection(), getHistory(), getSettings()]);
             this.setState({searchText, history, settings}, () => this.request());
         }
         catch(ex){
@@ -44,12 +42,8 @@ class App extends React.Component {
         if (searchText.trim()) {
             this.setState({loading: true});
 
-            this.axiosSource && this.axiosSource.cancel('abort');
-            this.axiosSource = axios.CancelToken.source();
-
             try{
-                const result = await getData(searchText, this.axiosSource.token);
-                let data = parse(result.data, this.state.direction, this.state.directionSuggestions);
+                const data = await fetchData(searchText);
                 this.setState({
                     loading: false,
                     items: data.items,

@@ -1,5 +1,5 @@
 
-.loader {
+.adidi-mceb-loader {
     position: relative;
     width: 100px;
     height: 100px;
@@ -13,7 +13,7 @@
         height: 50%;
         border: 2px solid #000;
         border-radius: 50%;
-        animation: circlePulse 1s ease infinite;
+        animation: adidi-mceb-circlePulse 1s ease infinite;
     }
 
     .circle-2 {
@@ -25,7 +25,7 @@
     }
 }
 
-@keyframes circlePulse {
+@keyframes adidi-mceb-circlePulse {
     0% {
         transform: scale(0.1);
     }

@@ -48,6 +48,10 @@ body{
     .chk-box{
         display: flex;
         align-items: center;
+
+        &:not(:first-child){
+            margin-top: 10px;
+        }
     }
 
     .select-history-items{
@@ -55,7 +59,7 @@ body{
         margin-left: 10px;
     }
 
-    .select-balloon-position{
+    .select-balloon{
         width: 150px;
         margin-left: 10px;
     }

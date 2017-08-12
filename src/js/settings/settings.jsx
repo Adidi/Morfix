@@ -42,7 +42,7 @@ class Settings extends React.Component {
     }
 
     render() {
-        const { settings, success } = this.state,
+        let { settings, success } = this.state,
             { history, balloon } = settings;
 
         return (
@@ -82,21 +82,37 @@ class Settings extends React.Component {
                                     <input type="checkbox" checked={balloon.enabled} onChange={e => {
                                         balloon.enabled = e.target.checked;
                                         this.setState({settings});
-                                    }} /> Show translation on balloon over the web
-                                    page edges
+                                    }} /> Show translation on a balloon popup over the web-page edges
                                 </label>
                             </div>
-                            <div className="chk-box indent" >
-                                <label htmlFor="selectBalloonPosition">Balloon Position:</label>
-                                <div className="select-balloon-position">
-                                    <select id="selectBalloonPosition" onChange={e => {
-                                        balloon.position = e.target.value;
-                                        this.setState({settings});
-                                    }} disabled={!balloon.enabled} className="form-control" value={balloon.position}>
-                                        <option value="topRight">Top-Right</option>
-                                        <option value="topMiddle">Top-Middle</option>
-                                        <option value="topLeft">Top-Left</option>
-                                    </select>
+                            <div className="indent" >
+                                <div className="chk-box">
+                                    <label htmlFor="selectBalloonPosition">Balloon Position:</label>
+                                    <div className="select-balloon">
+                                        <select id="selectBalloonPosition" onChange={e => {
+                                            balloon.position = e.target.value;
+                                            this.setState({settings});
+                                        }} disabled={!balloon.enabled} className="form-control" value={balloon.position}>
+                                            <option value="topRight">Top-Right</option>
+                                            <option value="topLeft">Top-Left</option>
+                                            <option value="bottomLeft">Bottom-Left</option>
+                                            <option value="bottomRight">Bottom-Right</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div className="chk-box">
+                                    <label htmlFor="selectBalloonTimeOpen">Balloon will stay open for:</label>
+                                    <div className="select-balloon">
+                                        <select id="selectBalloonTimeOpen" onChange={e => {
+                                            balloon.timeOpen = Number(e.target.value);
+                                            this.setState({settings});
+                                        }} disabled={!balloon.enabled} className="form-control" value={balloon.timeOpen.toString()}>
+                                            <option value="3">3 Seconds</option>
+                                            <option value="5">5 seconds</option>
+                                            <option value="10">10 seconds</option>
+                                            <option value="-1">Until I close it</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                             <div className="buttons">

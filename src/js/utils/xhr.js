@@ -12,8 +12,12 @@ const send = (url, options) => {
     return axios(options);
 };
 
+let cancelRequest = null;
 
-export const getData = (query,cancelToken) => {
+export const searchMorfix = query => {
+    cancelRequest && cancelRequest.cancel('abort');
+    cancelRequest = axios.CancelToken.source();
+
     const url = MORFIX_URL + query;
-    return send(url,{cancelToken});
+    return send(url,{cancelToken: cancelRequest.token});
 };
