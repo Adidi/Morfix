@@ -3,6 +3,7 @@
 @import "components/loader";
 
 $bg-color: #fff8dc;
+$border-radius: 3px;
 
 div#adidiMorfixChromeExtensionBalloon{
     position: fixed;
@@ -10,9 +11,8 @@ div#adidiMorfixChromeExtensionBalloon{
     min-height: 50px;
     background-color: $bg-color !important;
     border: 1px solid #e0dcbf !important;
-    z-index: 9999999999999999;
     transition: all .3s ease;
-    border-radius: 3px;
+    border-radius: $border-radius;
     box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
     font-size: 14px !important;
     line-height: normal !important;
@@ -20,6 +20,7 @@ div#adidiMorfixChromeExtensionBalloon{
     margin: 0;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
     box-sizing: border-box;
+    z-index: 99999999;
 
     &.topRight{
         top: 10px !important;
@@ -57,145 +58,139 @@ div#adidiMorfixChromeExtensionBalloon{
         }
     }
 
-    .adidi-mceb-wrapper{
-        position: relative;
-        background-color: $bg-color !important;
+    .adidi-mceb-img-box{
+        position: absolute;
+        top: 3px;
+        left: 3px;
+        width: 19px !important;
+        height: 19px !important;
+        max-width: 19px !important;
+        max-height: 19px !important;
+    }
 
-        .adidi-mceb-img-box{
-            position: absolute;
-            top: 3px;
-            left: 3px;
-            width: 19px !important;
-            height: 19px !important;
-            max-width: 19px !important;
-            max-height: 19px !important;
+    .adidi-mceb-x-box{
+        position: absolute;
+        top: 3px;
+        right: 3px;
+        width: 9px;
+        height: 9px;
+        cursor: pointer;
+
+        > img{
+            vertical-align: top;
+            width: 9px !important;
+            height: 9px !important;
+            max-width: 9px !important;
+            max-height: 9px !important;
+        }
+    }
+
+    .adidi-mceb-title-box{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        > .t{
+            text-align: center !important;
+            width: 250px !important;
+            white-space: nowrap !important;
+            overflow: hidden !important;
+            text-overflow: ellipsis !important;
+        }
+    }
+
+    .adidi-mceb-content{
+        padding: 10px 0;
+
+        .nr{
+            direction: ltr !important;
+            font-style: italic !important;
+            font-size: 18px !important;
+            text-align: center !important;
         }
 
-        .adidi-mceb-x-box{
-            position: absolute;
-            top: 3px;
-            right: 3px;
-            width: 9px;
-            height: 9px;
-            cursor: pointer;
-
-            > img{
-                vertical-align: top;
-                width: 9px !important;
-                height: 9px !important;
-                max-width: 9px !important;
-                max-height: 9px !important;
+        .adidi-mceb-result-item{
+            &:nth-child(odd){
+                background-color: lighten($bg-color, 3%);
             }
-        }
 
-        .adidi-mceb-title-box{
+            &:nth-child(even){
+                background-color: darken($bg-color, 3%);
+            }
+
             display: flex;
-            justify-content: center;
-            align-items: center;
+            justify-content: space-between;
+            padding: 5px 10px;
+            border-top: 1px solid #ddd;
 
-            > .t{
-                text-align: center !important;
-                width: 250px !important;
-                white-space: nowrap !important;
-                overflow: hidden !important;
-                text-overflow: ellipsis !important;
-            }
-        }
-
-        .adidi-mceb-content{
-            padding: 10px 0;
-
-            .nr{
-                direction: ltr !important;
-                font-style: italic !important;
-                font-size: 18px !important;
-                text-align: center !important;
+            &:last-child{
+                border-bottom: 1px solid #ddd;
             }
 
-            .adidi-mceb-result-item{
-                &:nth-child(odd){
-                    background-color: lighten($bg-color, 3%);
-                }
-
-                &:nth-child(even){
-                    background-color: darken($bg-color, 3%);
-                }
-
-                display: flex;
-                justify-content: space-between;
-                padding: 5px 10px;
-                border-top: 1px solid #ddd;
-
-                &:last-child{
-                    border-bottom: 1px solid #ddd;
-                }
-
-                &.rtl{
-                    direction: rtl !important;
-
-                    .t{
-                        text-align: right !important;
-                    }
-
-                    .ww{
-                        direction: ltr !important;
-                        text-align: left !important;
-                    }
-                }
-
-                &.ltr{
-                    direction: ltr !important;
-
-                    .t{
-                        text-align: left !important;
-
-                        &.viki{
-                            direction: rtl !important;
-                            text-align: right !important;
-                            width: 100% !important;
-                        }
-                    }
-
-                    .ww{
-                        direction: rtl !important;
-                        text-align: right !important;
-                    }
-                }
-
+            &.rtl{
+                direction: rtl !important;
 
                 .t{
-                    width: 80% !important;
+                    text-align: right !important;
+                }
+
+                .ww{
+                    direction: ltr !important;
+                    text-align: left !important;
+                }
+            }
+
+            &.ltr{
+                direction: ltr !important;
+
+                .t{
+                    text-align: left !important;
+
+                    &.viki{
+                        direction: rtl !important;
+                        text-align: right !important;
+                        width: 100% !important;
+                    }
+                }
+
+                .ww{
+                    direction: rtl !important;
+                    text-align: right !important;
+                }
+            }
+
+
+            .t{
+                width: 80% !important;
+                color: #000 !important;
+            }
+
+            .wb{
+                display: flex !important;
+
+                .w{
+                    font-weight: bold !important;
                     color: #000 !important;
                 }
 
-                .wb{
-                    display: flex !important;
+                .s{
+                    padding: 0 5px !important;
+                    cursor: pointer !important;
 
-                    .w{
-                        font-weight: bold !important;
-                        color: #000 !important;
+                    > img{
+                        vertical-align: middle !important;
+                        width: 17px !important;
+                        height: 15px !important;
+                        max-width: 17px !important;
+                        max-height: 15px !important;
                     }
-
-                    .s{
-                        padding: 0 5px !important;
-                        cursor: pointer !important;
-
-                        > img{
-                            vertical-align: middle !important;
-                            width: 17px !important;
-                            height: 15px !important;
-                            max-width: 17px !important;
-                            max-height: 15px !important;
-                        }
-                    }
-                }
-
-                .d{
-                    font-size: 12px !important;
-                    color: #777 !important;
                 }
             }
 
+            .d{
+                font-size: 12px !important;
+                color: #777 !important;
+            }
         }
     }
 }
