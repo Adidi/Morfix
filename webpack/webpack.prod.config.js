@@ -19,7 +19,11 @@ module.exports = webpackMerge(commonConfig(true), {
             comments: false
         }),
 
-        new OptimizeCssAssetsPlugin(),
+        new OptimizeCssAssetsPlugin({
+            cssProcessorOptions: {
+                safe: true
+            }
+        }),
 
         new ProgressBarPlugin()
     ]
