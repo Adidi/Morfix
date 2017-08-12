@@ -31,18 +31,14 @@ const title = balloonDOM.querySelector('div.adidi-mceb-title-box .t'),
 document.addEventListener('click',  async () => {
     settings = await getSettings();
     const { balloon } = settings,
+        selection = window.getSelection().toString().trim(),
         { enabled, position } = balloon;
-    if(!enabled){
+    if(!enabled || !isLegalWord(selection)){
         return;
     }
 
     balloonDOM.classList.remove('topRight','topLeft','bottomLeft','bottomRight');
     balloonDOM.classList.add(position);
-
-    const selection = window.getSelection().toString().trim();
-    if(!isLegalWord(selection)){
-        return;
-    }
 
     clearTimeout(timeoutId);
 

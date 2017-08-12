@@ -4,6 +4,7 @@ import Loader from './loader';
 import Suggestions from './suggestions';
 import History from './history';
 import { playSound } from '../../utils/dom';
+import cs from 'classnames';
 
 const TableResults = ({searchText,
                           direction,
@@ -16,9 +17,7 @@ const TableResults = ({searchText,
                           clearHistory,
                           settings
                         } ) => {
-    let els,
-        cls = '',
-        oppositeDir = direction === 'rtl' ? 'ltr' : 'rtl';
+    let els;
     searchText = searchText.trim();
     if (loading) {
         //put the loader inside the same table for better gui result
@@ -28,19 +27,18 @@ const TableResults = ({searchText,
     }
     else if (items.length) {
         /* dangerouslySetInnerHTML because in viki there are html links to viki */
-        cls = 'table-striped';
         els = items.map((item, i) =>
             <tr key={i}>
-                <td style={{direction: item.viki ? 'rtl' : null}} dangerouslySetInnerHTML={{__html: item.text}}/>
-                <td style={{direction: oppositeDir}}>
-                    <div className="word-box">
-                        <div className="word">{item.word}</div>
-                        {item.soundUrl && <div className="sound-box" onClick={e => {
-                                                playSound(item.soundUrl);
-                                             }}><img src="icons/sound.png" alt="" /></div> }
-                    </div>
-                    <div className="diber">{item.diber}</div>
-                </td>
+                <td className={cs({'viki': item.viki})} colSpan={item.viki ? '2' : null} dangerouslySetInnerHTML={{__html: item.text}}/>
+                {!item.viki &&  <td className="word-wrapper">
+                                    <div className="word-box">
+                                        <div className="word">{item.word}</div>
+                                        {item.soundUrl && <div className="sound-box" onClick={e => {
+                                                                playSound(item.soundUrl);
+                                                             }}><img src="icons/sound.png" alt="" /></div> }
+                                    </div>
+                                    <div className="diber">{item.diber}</div>
+                                </td> }
             </tr>
         );
     }
@@ -52,7 +50,7 @@ const TableResults = ({searchText,
     else {
         els = <tr>
             <td colSpan="2" className="explain">
-                <img src="/icons/icon48.png" alt=""/>
+                <img src="icons/icon48.png" alt=""/>
                 <span>Tip: Select text on any webpage, then click the Morfix button to view the definition of your selection.</span>
             </td>
         </tr>;
@@ -60,7 +58,7 @@ const TableResults = ({searchText,
 
     return (
         <div className="results-box">
-            <table className={'table ' + cls} style={{direction: direction}}>
+            <table className={cs('table-results table',{'table-striped': !!items.length},direction)} >
                 <tbody>
                 {els}
                 { !!suggestions.length && <Suggestions

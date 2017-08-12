@@ -22,8 +22,6 @@ chrome.runtime.onMessage.addListener((request, sender, callback) => {
     return true; //must return true to wait till the request end - otherwise it will return too soon
 });
 
-
-
 const requestMorfix = async (query, callback) => {
     const data = await fetchData(query);
     callback(data);
@@ -35,8 +33,9 @@ const requestMorfix = async (query, callback) => {
  */
 chrome.runtime.onInstalled.addListener( details => {
     const manifest = chrome.runtime.getManifest(),
-        scripts = manifest.content_scripts[0].js,
-        styles = manifest.content_scripts[0].css;
+        content_script = manifest.content_scripts[0],
+        scripts = content_script.js,
+        styles = content_script.css;
 
     const injectIntoTab = tab => {
         scripts.forEach( file => chrome.tabs.executeScript(tab.id, { file }) );
@@ -56,8 +55,6 @@ chrome.runtime.onInstalled.addListener( details => {
         });
     });
 });
-
-
 
 //selection from the web page:
 chrome.contextMenus.onClicked.addListener((info, tab) => {

@@ -16,7 +16,7 @@ const WordsLinks = ({ words, direction, onChangeSearch}) => {
 
     return (
         <div className="words-links">
-            <div style={{direction: direction}}>
+            <div className={direction}>
                 {anchors}
             </div>
         </div>

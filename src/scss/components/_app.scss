@@ -1,8 +1,28 @@
 .morfix{
     width: 400px;
     min-height: 200px;
-    table{
+    .table-results{
         margin: 10px 0 20px 0 !important;
+
+        &.rtl{
+            direction: rtl;
+
+            .word-wrapper{
+                direction: ltr;
+            }
+
+        }
+
+        &.ltr{
+            direction: ltr;
+            .viki{
+                direction: rtl;
+            }
+
+            .word-wrapper{
+                direction: rtl;
+            }
+        }
 
         td .word-box{
             display: flex;
@@ -61,9 +81,19 @@
         right: 5px;
     }
 
-    .words-links a{
-        font-size: 14px;
-        font-weight: bold;
-        display: inline-block;
+    .words-links {
+        a{
+            font-size: 14px;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        .rtl{
+            direction: rtl;
+        }
+
+        .ltr{
+            direction: ltr;
+        }
     }
 }
