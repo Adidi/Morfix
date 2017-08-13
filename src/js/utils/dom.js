@@ -5,7 +5,7 @@ export const getSelection = () => {
     return new Promise(async(resolve, reject) => {
         try{
             const selection = await executeScript('window.getSelection().toString();');
-            if(selection[0]){
+            if(selection && selection[0]){
                 resolve(selection[0]);
             }
             else{

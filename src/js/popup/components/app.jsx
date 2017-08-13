@@ -5,7 +5,7 @@ import fetchData from '../../utils/morfix';
 import debounce from 'lodash/debounce';
 import { MORFIX_URL }  from '../../consts/app';
 import { getSelection } from '../../utils/dom';
-import { getHistory, saveHistory, getSettings } from '../../utils/storage';
+import { getHistory, addToHistory, clearHistory, getSettings } from '../../utils/storage';
 import { getDefaultSettings } from '../../utils/app';
 
 class App extends React.Component {
@@ -84,38 +84,22 @@ class App extends React.Component {
     }
 
     async addToHistory(){
-        let { settings, searchText } = this.state;
-        if(!settings.history.enabled){
-            return;
-        }
+        const { searchText } = this.state;
 
-        const history = await getHistory();
+        try{
+            const history = await addToHistory(searchText);
+            this.setState({ history });
+        }
+        catch(ex){
 
-        searchText = searchText.trim();
-        if(!searchText){
-            return;
         }
-
-        const index = history.findIndex(item => item === searchText);
-        if(index !== -1){
-            history.splice(index, 1);
-        }
-        else if(history.length >= settings.history.itemsCount){
-            //remove last
-            history.pop();
-        }
-        //add to first of the array
-        history.unshift(searchText);
-        this.saveHistory(history);
     }
 
     clearHistory(){
-        this.saveHistory([]);
-    }
-
-    saveHistory(history){
-        saveHistory(history);
-        this.setState({ history });
+        //clear from storage
+        clearHistory();
+        //clear from local state
+        this.setState({history: []});
     }
 
     render() {
