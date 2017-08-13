@@ -5,6 +5,6 @@ export const openTab = (url, active = true) => {
 
 export const executeScript = (code) => {
     return new Promise((resolve,reject) => {
-        chrome.tabs.executeScript({code: code},result => resolve(result) );
+        chrome.tabs.executeScript({code},result => resolve(result) );
     });
 };

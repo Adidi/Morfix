@@ -2,21 +2,32 @@
  * use background script to fetch data from morfix because morfix is in http and from https pages
  * you can't xhr http for security
  * same thing about sound (new york times site blocks call to http sound :))
+ * register also global events to communicate between page and popup
  */
 import fetchData from '../utils/morfix';
 import { playSound } from '../utils/dom';
 import { MORFIX_URL } from '../consts/app';
 import { openTab } from '../utils/tabs';
 
+let selectedText = '';
 chrome.runtime.onMessage.addListener((request, sender, callback) => {
     const { action } = request;
-    if(action === 'morfix'){
-        const { query } = request;
-        requestMorfix(query, callback);
-    }
-    else if(action === 'sound'){
-        const { url } = request;
-        playSound(url);
+    switch(action){
+        case 'morfix':
+            const { query } = request;
+            requestMorfix(query, callback);
+            break;
+        case 'sound':
+            const { url } = request;
+            playSound(url);
+            break;
+        case 'setSelectedText':
+            const { text } = request;
+            selectedText = text;
+            break;
+        case 'getSelectedText':
+            callback(selectedText);
+            break;
     }
 
     return true; //must return true to wait till the request end - otherwise it will return too soon

@@ -17,7 +17,8 @@
     {
       "matches": ["http://*/*", "https://*/*"],
       "js": ["dist/common.js","dist/balloon.js"],
-      "css": ["dist/balloon.css"]
+      "css": ["dist/balloon.css"],
+      "all_frames": true
     }
   ],
   "icons": {

@@ -14,7 +14,7 @@ if(!balloonDOM){
     balloonDOM.id = BALLOON_ELEMENT_ID;
     balloonDOM.innerHTML = getStructure();
 
-    balloonDOM.classList.add('topRight');
+    balloonDOM.classList.add('adidi-mceb-topRight');
 
     const x = balloonDOM.querySelector('div.adidi-mceb-x-box');
     x.addEventListener('click', e => {
@@ -25,7 +25,7 @@ if(!balloonDOM){
     document.body.appendChild(balloonDOM);
 }
 
-const title = balloonDOM.querySelector('div.adidi-mceb-title-box .t'),
+const title = balloonDOM.querySelector('div.adidi-mceb-title-box .adidi-mceb-t'),
     content = balloonDOM.querySelector('div.adidi-mceb-content');
 
 document.addEventListener('click',  async () => {
@@ -33,12 +33,17 @@ document.addEventListener('click',  async () => {
     const { balloon } = settings,
         selection = window.getSelection().toString().trim(),
         { enabled, position } = balloon;
+
+    //always send the selected text to the backgorund-page cause this code runs on all frames
+    //and the popup can't get the selected text from iframe so it takes it from the backgroud page
+    chrome.runtime.sendMessage({ action: 'setSelectedText', text: selection });
+
     if(!enabled || !isLegalWord(selection)){
         return;
     }
 
-    balloonDOM.classList.remove('topRight','topLeft','bottomLeft','bottomRight','open');
-    balloonDOM.classList.add(position);
+    balloonDOM.classList.remove('adidi-mceb-topRight','adidi-mceb-topLeft','adidi-mceb-bottomLeft','adidi-mceb-bottomRight','adidi-mceb-open');
+    balloonDOM.classList.add(`adidi-mceb-${position}`);
 
     //make set timeout cause otherwise it will jump(not animate) when switching position in the settings
     setTimeout(() => {
@@ -84,8 +89,8 @@ const timeoutCloseBalloon = () => {
 
 const openBalloon = () => {
     clearTimeout(timeoutId);
-    balloonDOM.classList.add('open');
+    balloonDOM.classList.add('adidi-mceb-open');
 };
-const closeBalloon = () => balloonDOM.classList.remove('open');
+const closeBalloon = () => balloonDOM.classList.remove('adidi-mceb-open');
 
 
