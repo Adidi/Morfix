@@ -9,21 +9,24 @@ let balloonDOM = document.getElementById(BALLOON_ELEMENT_ID),
     timeoutId,
     settings;
 
-if(!balloonDOM){
-    balloonDOM = document.createElement('div');
-    balloonDOM.id = BALLOON_ELEMENT_ID;
-    balloonDOM.innerHTML = getStructure();
-
-    balloonDOM.classList.add('adidi-mceb-topRight');
-
-    const x = balloonDOM.querySelector('div.adidi-mceb-x-box');
-    x.addEventListener('click', e => {
-        e.stopPropagation();
-        closeBalloon();
-    });
-
-    document.body.appendChild(balloonDOM);
+//if exists remove it to start fresh - in case of re-injecting script
+if(balloonDOM){
+    balloonDOM.parentNode.removeChild(balloonDOM);
 }
+
+balloonDOM = document.createElement('div');
+balloonDOM.id = BALLOON_ELEMENT_ID;
+balloonDOM.innerHTML = getStructure();
+
+balloonDOM.classList.add('adidi-mceb-topRight');
+
+const x = balloonDOM.querySelector('div.adidi-mceb-x-box');
+x.addEventListener('click', e => {
+    e.stopPropagation();
+    closeBalloon();
+});
+
+document.body.appendChild(balloonDOM);
 
 const title = balloonDOM.querySelector('div.adidi-mceb-title-box .adidi-mceb-t'),
     content = balloonDOM.querySelector('div.adidi-mceb-content');
