@@ -4,6 +4,7 @@
 
 $bg-color: #fff8dc;
 $border-radius: 3px;
+$color: #373e44;
 
 div#adidiMorfixChromeExtensionBalloon{
     position: fixed;
@@ -21,39 +22,40 @@ div#adidiMorfixChromeExtensionBalloon{
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
     box-sizing: border-box;
     z-index: 2147483647;
+    color: $color !important;
 
-    &.topRight{
+    &.adidi-mceb-topRight{
         top: 10px !important;
         right: -310px !important;
 
-        &.open{
+        &.adidi-mceb-open{
             right: 10px !important;
         }
     }
 
-    &.topLeft{
+    &.adidi-mceb-topLeft{
         top: 10px !important;
         left: -310px !important;
 
-        &.open{
+        &.adidi-mceb-open{
             left: 10px !important;
         }
     }
 
-    &.bottomLeft{
+    &.adidi-mceb-bottomLeft{
         bottom: 10px !important;
         left: -310px !important;
 
-        &.open{
+        &.adidi-mceb-open{
             left: 10px !important;
         }
     }
 
-    &.bottomRight{
+    &.adidi-mceb-bottomRight{
         bottom: 10px !important;
         right: -310px !important;
 
-        &.open{
+        &.adidi-mceb-open{
             right: 10px !important;
         }
     }
@@ -77,7 +79,7 @@ div#adidiMorfixChromeExtensionBalloon{
         cursor: pointer;
 
         > img{
-            vertical-align: top;
+            vertical-align: top !important;
             width: 9px !important;
             height: 9px !important;
             max-width: 9px !important;
@@ -90,7 +92,7 @@ div#adidiMorfixChromeExtensionBalloon{
         justify-content: center;
         align-items: center;
 
-        > .t{
+        > .adidi-mceb-t{
             text-align: center !important;
             width: 250px !important;
             white-space: nowrap !important;
@@ -102,7 +104,7 @@ div#adidiMorfixChromeExtensionBalloon{
     .adidi-mceb-content{
         padding: 10px 0;
 
-        .nr{
+        .adidi-mceb-nr{
             direction: ltr !important;
             font-style: italic !important;
             font-size: 18px !important;
@@ -127,53 +129,53 @@ div#adidiMorfixChromeExtensionBalloon{
                 border-bottom: 1px solid #ddd;
             }
 
-            &.rtl{
+            &.adidi-mceb-rtl{
                 direction: rtl !important;
 
-                .t{
+                .adidi-mceb-t{
                     text-align: right !important;
                 }
 
-                .ww{
+                .adidi-mceb-ww{
                     direction: ltr !important;
                     text-align: left !important;
                 }
             }
 
-            &.ltr{
+            &.adidi-mceb-ltr{
                 direction: ltr !important;
 
-                .t{
+                .adidi-mceb-t{
                     text-align: left !important;
 
-                    &.viki{
+                    &.adidi-mceb-viki{
                         direction: rtl !important;
                         text-align: right !important;
                         width: 100% !important;
                     }
                 }
 
-                .ww{
+                .adidi-mceb-ww{
                     direction: rtl !important;
                     text-align: right !important;
                 }
             }
 
 
-            .t{
+            .adidi-mceb-t{
                 width: 80% !important;
-                color: #000 !important;
+                color: $color !important;
             }
 
-            .wb{
+            .adidi-mceb-wb{
                 display: flex !important;
 
-                .w{
+                .adidi-mceb-w{
                     font-weight: bold !important;
-                    color: #000 !important;
+                    color: $color !important;
                 }
 
-                .s{
+                .adidi-mceb-s{
                     padding: 0 5px !important;
                     cursor: pointer !important;
 
@@ -187,7 +189,7 @@ div#adidiMorfixChromeExtensionBalloon{
                 }
             }
 
-            .d{
+            .adidi-mceb-d{
                 font-size: 12px !important;
                 color: #777 !important;
             }
