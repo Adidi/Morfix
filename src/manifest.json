@@ -27,7 +27,8 @@
     "128": "icons/icon128.png"
   },
   "web_accessible_resources": [
-    "icons/*.png"
+    "icons/*.png",
+    "settings.html"
   ],
   "browser_action": {
     "default_icon": "icons/icon.png",

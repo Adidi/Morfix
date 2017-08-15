@@ -3,7 +3,11 @@ export const getStructure = () =>
     `<div class="adidi-mceb-img-box"><img src="${chrome.extension.getURL("icons/icon.png")}" /></div>
      <div class="adidi-mceb-x-box"><img src="${chrome.extension.getURL("icons/x.png")}" /></div>
      <div class="adidi-mceb-title-box"><div class="adidi-mceb-t"></div></div>
-     <div class="adidi-mceb-content"></div>`;
+     <div class="adidi-mceb-content"></div>
+     <div class="adidi-mceb-footer">
+          <img src="${chrome.extension.getURL("icons/settings.png")}" />
+          <a href="${chrome.extension.getURL("settings.html")}" target="_blank">Settings</a>
+    </div>`;
 
 export const getLoader = () =>
     `<div class="adidi-mceb-loader">

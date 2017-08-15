@@ -26,6 +26,15 @@ x.addEventListener('click', e => {
     closeBalloon();
 });
 
+//stop propagation in links (now - only footer)
+const links = balloonDOM.querySelectorAll('a');
+links.forEach( link => {
+    link.addEventListener('click', e => {
+        e.stopPropagation();
+    });
+});
+
+
 document.body.appendChild(balloonDOM);
 
 const title = balloonDOM.querySelector('div.adidi-mceb-title-box .adidi-mceb-t'),
@@ -57,19 +66,7 @@ document.addEventListener('click',  async () => {
         //send to background page for http from https use (morfix is always http)
         chrome.runtime.sendMessage({ action: 'morfix', query: selection }, data => {
             content.innerHTML = getContent(data);
-            //attach sound events
-            const sounds = [...content.querySelectorAll('.js-sound')];
-            sounds.forEach( el => {
-                const soundUrl = el.getAttribute('data-sound-url');
-                el.addEventListener('click', e => {
-                    e.stopPropagation();
-                    //send sound to bg for https -> http
-                    chrome.runtime.sendMessage({ action: 'sound', url: soundUrl });
-                    //delay the close if press on sound
-                    timeoutCloseBalloon();
-                });
-            });
-
+            attachEvents();
             timeoutCloseBalloon();
         });
     },1);
@@ -94,6 +91,22 @@ const openBalloon = () => {
     clearTimeout(timeoutId);
     balloonDOM.classList.add('adidi-mceb-open');
 };
+
 const closeBalloon = () => balloonDOM.classList.remove('adidi-mceb-open');
+
+const attachEvents = () => {
+    //attach sound events
+    const sounds = [...content.querySelectorAll('.js-sound')];
+    sounds.forEach( el => {
+        const soundUrl = el.getAttribute('data-sound-url');
+        el.addEventListener('click', e => {
+            e.stopPropagation();
+            //send sound to bg for https -> http
+            chrome.runtime.sendMessage({ action: 'sound', url: soundUrl });
+            //delay the close if press on sound
+            timeoutCloseBalloon();
+        });
+    });
+};
 
 

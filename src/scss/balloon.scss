@@ -102,7 +102,7 @@ div#adidiMorfixChromeExtensionBalloon{
     }
 
     .adidi-mceb-content{
-        padding: 10px 0;
+        padding: 10px 0 25px 0;
 
         .adidi-mceb-nr{
             direction: ltr !important;
@@ -193,6 +193,19 @@ div#adidiMorfixChromeExtensionBalloon{
                 font-size: 12px !important;
                 color: #777 !important;
             }
+        }
+    }
+
+    .adidi-mceb-footer{
+        position: absolute;
+        bottom: 5px;
+        right: 5px;
+        display: flex;
+        align-items: center;
+
+        a:hover{
+            text-decoration: underline !important;
+            font-size: 14px !important;
         }
     }
 }
