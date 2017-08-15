@@ -202,10 +202,19 @@ div#adidiMorfixChromeExtensionBalloon{
         right: 5px;
         display: flex;
         align-items: center;
+        direction: ltr !important;
 
-        a:hover{
-            text-decoration: underline !important;
+        a{
+            color: #23527c !important;
             font-size: 14px !important;
+            text-decoration: none;
+            &:hover{
+                text-decoration: underline !important;
+            }
+
+            &:visited{
+                color: #23527c !important;
+            }
         }
     }
 }
