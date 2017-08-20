@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Morfix Hebrew English Translator for Chrome",
   "description": "Translate Hebrew to English and English to Hebrew using Morfix engine.",
-  "version": "2.5",
+  "version": "2.6",
   "background": {
     "scripts": ["dist/common.js","dist/background.js"]
   },
