@@ -82,7 +82,7 @@ class Settings extends React.Component {
                                     <input type="checkbox" checked={balloon.enabled} onChange={e => {
                                         balloon.enabled = e.target.checked;
                                         this.setState({settings});
-                                    }} /> Show translation on a balloon popup over the web-page edges
+                                    }} /> Show translation on a balloon popup over the web-page edges when selecting a text.
                                 </label>
                             </div>
                             <div className="indent" >
