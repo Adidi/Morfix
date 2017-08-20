@@ -6,7 +6,7 @@ import { getSettings } from '../utils/storage';
 const BALLOON_ELEMENT_ID = 'adidiMorfixChromeExtensionBalloon';
 
 let balloonDOM = document.getElementById(BALLOON_ELEMENT_ID),
-    timeoutId,
+    timeoutIdClose,
     settings;
 
 //if exists remove it to start fresh - in case of re-injecting script
@@ -40,10 +40,9 @@ document.body.appendChild(balloonDOM);
 const title = balloonDOM.querySelector('div.adidi-mceb-title-box .adidi-mceb-t'),
     content = balloonDOM.querySelector('div.adidi-mceb-content');
 
-document.addEventListener('click',  async () => {
+const execute = async (selection) => {
     settings = await getSettings();
     const { balloon } = settings,
-        selection = window.getSelection().toString().trim(),
         { enabled, position } = balloon;
 
     //always send the selected text to the backgorund-page cause this code runs on all frames
@@ -70,10 +69,10 @@ document.addEventListener('click',  async () => {
             timeoutCloseBalloon();
         });
     },1);
-});
+};
 
 const timeoutCloseBalloon = () => {
-    clearTimeout(timeoutId);
+    clearTimeout(timeoutIdClose);
 
     //settings will always be exists cause i fetch them on click !
     const { balloon } = settings,
@@ -82,13 +81,13 @@ const timeoutCloseBalloon = () => {
         return;
     }
 
-    timeoutId = setTimeout(() => {
+    timeoutIdClose = setTimeout(() => {
         closeBalloon();
     },timeOpen*1000);
 };
 
 const openBalloon = () => {
-    clearTimeout(timeoutId);
+    clearTimeout(timeoutIdClose);
     balloonDOM.classList.add('adidi-mceb-open');
 };
 
@@ -109,4 +108,19 @@ const attachEvents = () => {
     });
 };
 
+const getSelection = () => window.getSelection().toString().trim();
 
+let currentSelection = '';
+const checkSelection = () => {
+    const selection = getSelection();
+    if (currentSelection !== selection) {
+        currentSelection = selection;
+        execute(selection);
+    }
+
+    setTimeout(() => {
+        checkSelection();
+    }, 100);
+};
+
+checkSelection();
