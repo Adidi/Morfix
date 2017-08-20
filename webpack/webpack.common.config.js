@@ -1,6 +1,7 @@
 const path = require('path'),
     webpack = require('webpack'),
-    ExtractTextPlugin = require('extract-text-webpack-plugin');
+    ExtractTextPlugin = require('extract-text-webpack-plugin'),
+    CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = function(prod) {
 
@@ -60,6 +61,10 @@ module.exports = function(prod) {
         },
 
         plugins: [
+            new CleanWebpackPlugin('dist/*.*', {
+                root: path.join(__dirname, '../src'),
+            }),
+
             new ExtractTextPlugin({
                 filename: '[name].css',
                 allChunks: true
