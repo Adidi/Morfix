@@ -1,7 +1,8 @@
-import '../../scss/balloon.scss';
 import { isLegalWord } from '../utils/app';
 import { getStructure, getLoader, getContent } from './html';
 import { getSettings } from '../utils/storage';
+
+import '../../scss/balloon.scss';
 
 const BALLOON_ELEMENT_ID = 'adidiMorfixChromeExtensionBalloon';
 

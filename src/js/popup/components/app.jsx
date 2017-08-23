@@ -111,7 +111,8 @@ class App extends React.Component {
             loading,
             history,
             settings
-        } = this.state;
+        } = this.state,
+            { history:settingsHistory } = settings;
 
         let linkFooter = searchText.trim() ?
             <div className="footer-link"><a href={MORFIX_URL + searchText} target="_blank"><img
@@ -134,7 +135,7 @@ class App extends React.Component {
                     searchText={searchText}
                     history={history}
                     clearHistory={this.clearHistory.bind(this)}
-                    settings={settings}
+                    showHistory={!!history.length && settingsHistory.enabled}
                 />
                 {linkFooter}
                 <div className="settings-link"><img src="icons/settings.png" alt="" /><a href="settings.html" target="_blank">Settings</a></div>

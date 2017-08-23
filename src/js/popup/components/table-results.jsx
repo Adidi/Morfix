@@ -15,7 +15,7 @@ const TableResults = ({searchText,
                           onChangeSearch,
                           history,
                           clearHistory,
-                          settings
+                          showHistory
                         } ) => {
     let els;
     searchText = searchText.trim();
@@ -66,8 +66,7 @@ const TableResults = ({searchText,
                     direction={directionSuggestions}
                     onChangeSearch={onChangeSearch}
                     /> }
-                { !!history.length &&
-                    settings.history.enabled &&
+                { showHistory &&
                         <History
                             history={history}
                             onChangeSearch={onChangeSearch}
@@ -89,7 +88,7 @@ TableResults.propTypes = {
     onChangeSearch: PropTypes.func.isRequired,
     history: PropTypes.array.isRequired,
     clearHistory: PropTypes.func.isRequired,
-    settings: PropTypes.object.isRequired
+    showHistory: PropTypes.bool.isRequired
 };
 
 export default TableResults;
