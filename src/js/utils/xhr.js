@@ -19,5 +19,5 @@ export const searchMorfix = query => {
     cancelRequest = axios.CancelToken.source();
 
     const url = MORFIX_URL + query;
-    return send(url,{cancelToken: cancelRequest.token});
+    return send(url, { cancelToken: cancelRequest.token });
 };
