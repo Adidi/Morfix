@@ -1,0 +1,13 @@
+Translate Hebrew to English and English to Hebrew using morfix engine.
+
+Select text on any webpage, then click the Morfix button to view the definition of your selection. 
+You can choose from extension settings to see the results in a popup balloon over the web page when you select the text.
+Moreover, you can right click on your selection and a menu item will appear directs you to morfix page for that term.
+In case the word is not found - Morfix will suggest you correction spelling.
+
+
+תרגום אנגלית-עברית, עברית-אנגלית באמצעות המנוע של מורפיקס.
+ניתן לסמן מילה בכל אתר, ללחוץ על הכפתור של מורפיקס ולקבל את התרגום.
+ניתן לבחור מהאפשרויות של ההרחבה לקבל את התרגום בבלון קופץ בדף הנוכחי.
+כמו כן ניתן ללחוץ עכבר ימני על מילה מסומנת ותת תפריט יופיע שיוביל אתכם לעמוד המלא באתר מורפיקס.
+במידה ומילה לא נמצאה - מורפיקס יציע לך תיקונים למילה
