@@ -2,9 +2,6 @@
 Translator engine English-Hebrew, Hebrew-English
 Built with [Facebook REACT](https://facebook.github.io/react/) ,ES6 ,Babel
 
-[Chrome Web Store](https://chrome.google.com/webstore/detail/morfix/edapkleoiajaekmconcehhkcbehppgom)
-
-
 Use
 ------------
 
