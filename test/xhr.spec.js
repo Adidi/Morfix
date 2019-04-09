@@ -19,9 +19,8 @@ describe('Morfix http call', () => {
         });
 
         it('hebrew translation contains "תינוק"', () => {
-            const heWord0 =  $('div.heWord0');
-            heWord0.length.should.be.equal(1);
-            heWord0.find('div.translation_he').text().should.contains('תִּינוֹק');
+            const el =  $('div.normal_translation_div');
+            el.text().should.contains('תִּינוֹק');
         });
     });
 
@@ -40,9 +39,8 @@ describe('Morfix http call', () => {
         });
 
         it('english translation contains "mother"', () => {
-            const enWord0 = $('#translate_result0');
-            enWord0.length.should.be.equal(1);
-            enWord0.find('div.default_trans').text().toLowerCase().should.contains('mother');
+            const el =  $('div.normal_translation_div');
+            el.text().toLowerCase().should.contains('mother');
         });
     });
     

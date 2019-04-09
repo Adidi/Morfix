@@ -4,6 +4,7 @@ import { getSettings } from '../utils/storage';
 
 import '../../scss/balloon.scss';
 
+
 const BALLOON_ELEMENT_ID = 'adidiMorfixChromeExtensionBalloon';
 
 let balloonDOM = document.getElementById(BALLOON_ELEMENT_ID),

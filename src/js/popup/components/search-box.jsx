@@ -1,14 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const SearchBox = ({onChangeSearch, searchText }) =>
+const SearchBox = ({ onChangeSearch, searchText }) =>
     <div className="search-box">
         <input
             ref={r => {
-                if (r) {
-                    SearchBox.searchInput = r;
-                    r.focus();
-                }
+                r && r.focus();
             }}
             type="text"
             className="form-control"

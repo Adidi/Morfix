@@ -13,3 +13,5 @@ node_modules
 .npm
 
 morfix.zip
+
+src/dist/*.*

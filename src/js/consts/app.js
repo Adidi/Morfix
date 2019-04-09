@@ -1,4 +1,4 @@
-export const MORFIX_URL = 'http://www.morfix.co.il/';
+export const MORFIX_URL = 'https://www.morfix.co.il/';
 export const DEFAULT_SETTINGS = {
     history: {
         enabled: true,

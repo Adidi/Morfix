@@ -7,7 +7,7 @@ const WordsLinks = ({ words, direction, onChangeSearch}) => {
     words.forEach((word, i) => {
         word = word.trim();
         anchors.push(<a key={`a${i}`} href="#" onClick={ e => {
-            onChangeSearch(word, true);
+            onChangeSearch(word);
         }}>{word}</a>);
         if (i + 1 < words.length) {
             anchors.push(<span key={`span${i}`}>,</span>);

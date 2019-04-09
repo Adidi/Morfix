@@ -8,10 +8,10 @@ module.exports = function(prod) {
     return {
         mode: prod ? 'production' : 'development',
         entry: {
-            popup: ['babel-polyfill', path.resolve(__dirname, '../src/js/popup')],
-            settings: ['babel-polyfill', path.resolve(__dirname, '../src/js/settings')],
-            balloon: ['babel-polyfill', path.resolve(__dirname, '../src/js/balloon')],
-            background: ['babel-polyfill', path.resolve(__dirname, '../src/js/background')]
+            popup: ['@babel/polyfill', path.resolve(__dirname, '../src/js/popup')],
+            settings: ['@babel/polyfill', path.resolve(__dirname, '../src/js/settings')],
+            balloon: ['@babel/polyfill', path.resolve(__dirname, '../src/js/balloon')],
+            background: ['@babel/polyfill', path.resolve(__dirname, '../src/js/background')]
         },
 
         output: {
@@ -70,9 +70,8 @@ module.exports = function(prod) {
         },
 
         plugins: [
-            new CleanWebpackPlugin('dist/*.*', {
-                root: path.join(__dirname, '../src'),
-            }),
+
+            new CleanWebpackPlugin(),
 
             new webpack.DefinePlugin({
                 'process.env.NODE_ENV': JSON.stringify(prod ? 'production' : 'development')

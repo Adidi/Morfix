@@ -1,23 +1,16 @@
-const webpack = require('webpack'),
-    webpackMerge = require('webpack-merge'),
-    ProgressBarPlugin = require('progress-bar-webpack-plugin'),
-    commonConfig = require('./webpack.common.config'),
-    OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const webpack = require('webpack');
+const webpackMerge = require('webpack-merge');
+const ProgressBarPlugin = require('progress-bar-webpack-plugin');
+const commonConfig = require('./webpack.common.config');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = webpackMerge(commonConfig(true), {
+    optimization: {
+        minimizer: [new TerserPlugin()],
+      },
     plugins: [
-        new webpack.optimize.UglifyJsPlugin({
-            beautify: false,
-            mangle: {
-                screw_ie8: true
-            },
-            compress: {
-                screw_ie8: true,
-                warnings: false
-            },
-            sourceMap: false,
-            comments: false
-        }),
 
         new OptimizeCssAssetsPlugin({
             cssProcessorOptions: {

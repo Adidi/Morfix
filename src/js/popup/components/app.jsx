@@ -66,16 +66,10 @@ class App extends React.Component {
         }
     }
 
-    onChangeSearch(value, focus = false) {
+    onChangeSearch(value) {
         let loading = !!value.trim();
         this.setState({searchText: value, loading, items: [], suggestions: []});
         this.search();
-        if (focus) {
-            let el = this.searchBoxComp && this.searchBoxComp.searchInput;
-            if(el){
-                el.focus();
-            }
-        }
     }
 
     search() {
@@ -111,8 +105,10 @@ class App extends React.Component {
             loading,
             history,
             settings
-        } = this.state,
-            { history:settingsHistory } = settings;
+        } = this.state;
+        
+        const { history:settingsHistory } = settings;
+        
 
         let linkFooter = searchText.trim() ?
             <div className="footer-link"><a href={MORFIX_URL + searchText} target="_blank"><img
@@ -121,7 +117,6 @@ class App extends React.Component {
         return (
             <div className="morfix">
                 <SearchBox
-                    ref={r => this.searchBoxComp = r}
                     onChangeSearch={this.onChangeSearch.bind(this)}
                     searchText={searchText}
                 />
